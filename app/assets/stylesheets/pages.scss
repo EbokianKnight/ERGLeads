@@ -4,10 +4,29 @@
 
 $primary_color: #e6d4bb;
 $secondary_color: #ccc;
+$warn_color: darkred;
 $black: #333;
+$title_font: 24px;
+$large_font: 16px;
+$base_font: 14px;
+$sm_font: 12px;
+
 
 body {
   color: $black;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 500;
+  font-size: $base_font;
+}
+h1 { font-size: $title_font; font-weight: 500; }
+label { font-size: $base_font; font-weight: 500; }
+
+.notice, .alert {
+  color: $warn_color;
+  font-size: $sm_font;
+  margin: 10px 0px;
 }
 
 .main_header {
@@ -16,7 +35,7 @@ body {
   grid-template-rows: auto;
   background: $primary_color;
   align-items: center;
-  padding: 10px 30px;
+  padding: 15px 30px;
 
   .main_header__main_title {
     margin: 0;

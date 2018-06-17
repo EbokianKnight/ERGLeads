@@ -7,8 +7,11 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'contact_app/index' %>
-    <%= stylesheet_pack_tag 'contact_app/assets/stylesheets/app' %>
+
+    <% if @current_user %>
+      <%= javascript_pack_tag 'contact_app/index' %>
+      <%= stylesheet_pack_tag 'contact_app/assets/stylesheets/app' %>
+    <% end %>
   </head>
 
   <script type="text/javascript" language="javascript">
@@ -21,7 +24,16 @@
   </script>
 
   <body>
-    <%= render 'devise/menu/header' %>
-    <%= yield %>
+    <%= render 'menu/header' %>
+    <% if @current_user %>
+
+      <%= yield %>
+
+    <% else %>
+
+      <%= render 'menu/notices' %>
+      <%= yield %>
+
+    <% end %>
   </body>
 </html>
