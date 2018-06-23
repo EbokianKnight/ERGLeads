@@ -1,7 +1,7 @@
 module Api
   module V1
-    class ApiController < ActionController::Base
-
+    class ApiController < ApplicationController
+      include ErrorHandler
     end
   end
 end

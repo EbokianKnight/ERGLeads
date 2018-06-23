@@ -1,0 +1,26 @@
+An Error was raised in <%= @app %>
+==================================================
+<% if @user %>
+  User: <%= @user.email %>
+  ==================================================
+<% end %>
+
+<% if @error.is_a?(ApiError) %>
+  JsonResponse:
+  <%= @error.as_json.to_json %>
+  ==================================================
+<% end %>
+
+<% if @request %>
+  Request:
+  URL: <%= @request.url %>
+  Method: <%= @request.method %>
+  Remote IP: <%= @request.remote_ip %>
+  ==================================================
+<% end %>
+
+<%= @error.class.to_s %>: <%= @error.message %>
+<% if @error.backtrace %>
+  <%= Rails.backtrace_cleaner.clean(@error.backtrace).join("\n") %>
+<% end %>
+==================================================

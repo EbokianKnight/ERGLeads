@@ -1,0 +1,14 @@
+api:
+  resources:
+    contact: 'Contact'
+    contact_group: 'Contact Group'
+    venue: 'Venue'
+    event: 'Event'
+    location: 'Location'
+
+  errors:
+    default_messages:
+      blank: cannot be blank
+      taken: must be unique
+      invalid_phone_number: must be valid
+      invalid_email: must be valid

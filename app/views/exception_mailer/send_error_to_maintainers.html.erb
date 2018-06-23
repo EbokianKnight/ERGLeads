@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>An Error was raised in <%= @app %></h1>
+
+    <% if @user %>
+      <div class="">
+        User: <%= @user.email %>
+      </div>
+      <hr/>
+    <% end %>
+
+    <% if @error.is_a?(ApiError) %>
+      <label>JsonResponse:
+        <div class=""> <%= @error.as_json.to_json %> </div>
+      </label>
+      <hr/>
+    <% end %>
+
+    <% if @request %>
+      <label>Request:</label>
+      <div class="">URL: <%= @request.url %> </div>
+      <div class="">Method: <%= @request.method %> </div>
+      <div class="">Remote IP: <%= @request.remote_ip %> </div>
+      <hr/>
+    <% end %>
+
+    <label><%= @error.class.to_s %>
+      <div class=""> <%= @error.message %> </div>
+    </label>
+    <% if @error.backtrace %>
+      <div>
+        <%= Rails.backtrace_cleaner.clean(@error.backtrace).join("<br/>") %>
+      </div>
+    <% end %>
+  </body>
+</html>

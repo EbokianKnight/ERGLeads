@@ -10,10 +10,55 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_17_173755) do
+ActiveRecord::Schema.define(version: 2018_06_23_202050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "contact_groups", force: :cascade do |t|
+    t.string "name", default: "Anonymous", null: false
+    t.text "comments"
+    t.string "email"
+    t.string "phone"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "job_title"
+    t.string "email"
+    t.string "phone"
+    t.text "comments"
+    t.integer "contact_group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contact_group_id"], name: "index_contacts_on_contact_group_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "date"
+    t.integer "venue_id"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["venue_id"], name: "index_events_on_venue_id"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "country", default: "USA", null: false
+    t.string "city", null: false
+    t.string "state", null: false
+    t.string "street", null: false
+    t.string "zipcode", null: false
+    t.string "addressable_type"
+    t.bigint "addressable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["addressable_type", "addressable_id"], name: "index_locations_on_addressable_type_and_addressable_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -28,8 +73,22 @@ ActiveRecord::Schema.define(version: 2018_06_17_173755) do
     t.datetime "last_sign_in_at"
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
+    t.string "kind", default: "user", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "venues", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "kind"
+    t.string "other_kind"
+    t.string "email"
+    t.string "phone"
+    t.text "comments"
+    t.integer "contact_group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contact_group_id"], name: "index_venues_on_contact_group_id"
   end
 
 end

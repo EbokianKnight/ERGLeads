@@ -1,4 +1,11 @@
 Rails.application.configure do
+
+  config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.perform_deliveries = true
+  # config.action_mailer.default_options = {
+  #   from: 'no-reply@example.com'
+  # }
+
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   # Verifies that versions and hashed value of the package contents in the project's package.json
   config.webpacker.check_yarn_integrity = true
