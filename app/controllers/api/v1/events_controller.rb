@@ -36,12 +36,8 @@ module Api
         )
       end
 
-      def ensure_venue
-        @venue = Venue.find(params[:id])
-      end
-
       def ensure_record
-        @record = venue.find(params[:event_id])
+        @record = Event.find(params[:event_id])
       end
     end
   end

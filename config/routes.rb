@@ -6,11 +6,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :contact_groups, except: [:new, :edit]
       resources :contacts, except: [:new, :edit]
-      resources :venues, except: [:new, :edit] do
-        member do
-          resources :events, param: :event_id, except: [:new, :edit]
-        end
-      end
+      resources :venues, except: [:new, :edit]
+      resources :events, except: [:new, :edit]
     end
   end
 
