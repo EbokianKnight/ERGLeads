@@ -5,7 +5,7 @@ An Error was raised in <%= @app %>
   ==================================================
 <% end %>
 
-<% if @error.is_a?(ApiError) %>
+<% if @error.is_a?(ApiError::Base) %>
   JsonResponse:
   <%= @error.as_json.to_json %>
   ==================================================

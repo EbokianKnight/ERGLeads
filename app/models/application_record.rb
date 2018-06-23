@@ -7,7 +7,7 @@ class ApplicationRecord < ActiveRecord::Base
   end
 
   def as_json(*args)
-    "Serialize::Models::#{self.class}".constantize.new(self).as_json
+    "Serialize::Models::#{self.class}".constantize.new(self).as_json(*args)
   rescue
     super(*args)
   end

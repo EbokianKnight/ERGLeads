@@ -13,7 +13,7 @@
       <hr/>
     <% end %>
 
-    <% if @error.is_a?(ApiError) %>
+    <% if @error.is_a?(ApiError::Base) %>
       <label>JsonResponse:
         <div class=""> <%= @error.as_json.to_json %> </div>
       </label>

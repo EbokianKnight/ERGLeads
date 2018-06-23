@@ -4,7 +4,7 @@ module Api
       before_action :ensure_record, only: [:show, :update, :destroy]
 
       def show
-        render json: record.as_json, status: 200
+        render json: record.as_json(full: true), status: 200
       end
 
       def index
@@ -13,12 +13,12 @@ module Api
 
       def create
         record.create!(allowed_params)
-        render json: record.as_json, status: 202
+        render json: record.as_json(full: true), status: 202
       end
 
       def update
         record.update!(allowed_params)
-        render json: record.as_json, status: 200
+        render json: record.as_json(full: true), status: 200
       end
 
       def destroy
