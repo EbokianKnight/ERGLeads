@@ -4,34 +4,34 @@ module Api
       before_action :ensure_record, only: [:show, :update, :destroy]
 
       def show
-        render json: record.as_json, status: 200
+        render json: { event: record }, status: 200
       end
 
       def index
-        render json: Event, status: 200
+        render json: { events: Event }, status: 200
       end
 
       def create
         record.create!(allowed_params)
-        render json: record.as_json, status: 202
+        render json: { event: record }, status: 202
       end
 
       def update
         record.update!(allowed_params)
-        render json: record.as_json, status: 200
+        render json: { event: record }, status: 200
       end
 
       def destroy
         record.destroy
-        render json: { message: :ok }, status: 200
+        render json: { event: nil }, status: 200
       end
 
       private
 
-      attr_reader :record, :venue
+      attr_reader :record
 
       def allowed_params
-        params.require(:contact).permit(
+        params.require(:event).permit(
           :date, :name, :description, :venue_id
         )
       end

@@ -4,26 +4,26 @@ module Api
       before_action :ensure_record, only: [:show, :update, :destroy]
 
       def show
-        render json: record.as_json(full: true), status: 200
+        render json: { venue_group: record }, status: 200
       end
 
       def index
-        render json: VenueGroup, status: 200
+        render json: { venue_groups: VenueGroup }, status: 200
       end
 
       def create
         record.create!(allowed_params)
-        render json: record.as_json(full: true), status: 202
+        render json: { venue_group: record }, status: 202
       end
 
       def update
         record.update!(allowed_params)
-        render json: record.as_json(full: true), status: 200
+        render json: { venue_group: record }, status: 200
       end
 
       def destroy
         record.destroy
-        render json: { message: :ok }, status: 200
+        render json: { venue_group: nil }, status: 200
       end
 
       private
@@ -31,7 +31,7 @@ module Api
       attr_reader :record
 
       def allowed_params
-        params.require(:contact_group).permit(
+        params.require(:venue_group).permit(
           :name, :phone, :email, :comments,
           location_attributes: [:city, :state, :country, :zipcode, :street]
         )

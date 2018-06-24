@@ -4,8 +4,8 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :contact_groups, except: [:new, :edit]
       resources :contacts, except: [:new, :edit]
+      resources :venue_groups, except: [:new, :edit]
       resources :venues, except: [:new, :edit]
       resources :events, except: [:new, :edit]
     end
