@@ -1,8 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Routes from './routes';
+import Router from './routes';
+import createStore from './store'
+import { Provider } from 'react-redux'
+
+import { createBrowserHistory } from 'history'
+const history = createBrowserHistory();
+
+
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <Routes />, document.getElementById('contact_app'),
+    <Provider store={createStore(history)}>
+      <Router history={history} />
+    </Provider>,
+    document.getElementById('contact_app'),
   )
 });

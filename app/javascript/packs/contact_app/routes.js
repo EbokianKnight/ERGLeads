@@ -1,14 +1,14 @@
 import React from 'react'
-import {
-  BrowserRouter as Router,
-  Route,
-} from 'react-router-dom'
+import { ConnectedRouter } from 'connected-react-router'
+import { Route, Switch } from 'react-router'
+
 import LandingPage from './components/landingPage';
-const App = (props) => (
-  <Router>
+
+const Router = (props) => (
+  <ConnectedRouter { ...props }>
     <div>
       <Route exact path='/' component={LandingPage} />
     </div>
-  </Router>
+  </ConnectedRouter>
 )
-export default App;
+export default Router;
