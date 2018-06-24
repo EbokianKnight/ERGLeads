@@ -1,7 +1,7 @@
 api:
   resources:
     contact: 'Contact'
-    contact_group: 'Contact Group'
+    venue_group: 'Organization'
     venue: 'Venue'
     event: 'Event'
     location: 'Location'
