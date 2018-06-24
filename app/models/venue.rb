@@ -21,20 +21,12 @@ class Venue < ApplicationRecord
   validates :email, email: true, allow_blank: true
   validate :other_kinds_required?
 
-  belongs_to :contact_group, optional: true
+  belongs_to :venue_group, optional: true
+  has_many :contacts, as: :connectable
   has_one :location, as: :addressable
   has_many :events
 
   accepts_nested_attributes_for :events
-
-  before_create :ensure_contact_group
-
-  def ensure_contact_group
-    if contact_group_id.blank?
-      new_contact_group = ContactGroup.create
-      self.contact_group_id = new_contact_group.id
-    end
-  end
 
   def other_kinds_required?
     return true unless kind == 'other'

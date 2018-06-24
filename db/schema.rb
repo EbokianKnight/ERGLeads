@@ -15,15 +15,6 @@ ActiveRecord::Schema.define(version: 2018_06_23_202050) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "contact_groups", force: :cascade do |t|
-    t.string "name", default: "Anonymous", null: false
-    t.text "comments"
-    t.string "email"
-    t.string "phone"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "contacts", force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name", null: false
@@ -31,10 +22,11 @@ ActiveRecord::Schema.define(version: 2018_06_23_202050) do
     t.string "email"
     t.string "phone"
     t.text "comments"
-    t.integer "contact_group_id"
+    t.string "connectable_type"
+    t.bigint "connectable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["contact_group_id"], name: "index_contacts_on_contact_group_id"
+    t.index ["connectable_type", "connectable_id"], name: "index_contacts_on_connectable_type_and_connectable_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -78,6 +70,15 @@ ActiveRecord::Schema.define(version: 2018_06_23_202050) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "venue_groups", force: :cascade do |t|
+    t.string "name"
+    t.text "comments"
+    t.string "email"
+    t.string "phone"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "venues", force: :cascade do |t|
     t.string "name", null: false
     t.string "kind"
@@ -85,10 +86,10 @@ ActiveRecord::Schema.define(version: 2018_06_23_202050) do
     t.string "email"
     t.string "phone"
     t.text "comments"
-    t.integer "contact_group_id"
+    t.integer "venue_group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["contact_group_id"], name: "index_venues_on_contact_group_id"
+    t.index ["venue_group_id"], name: "index_venues_on_venue_group_id"
   end
 
 end

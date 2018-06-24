@@ -1,6 +1,6 @@
 module Api
   module V1
-    class ContactGroupsController < ApplicationController
+    class VenueGroupsController < ApplicationController
       before_action :ensure_record, only: [:show, :update, :destroy]
 
       def show
@@ -8,7 +8,7 @@ module Api
       end
 
       def index
-        render json: ContactGroup.all, status: 200
+        render json: VenueGroup.all, status: 200
       end
 
       def create
@@ -33,20 +33,12 @@ module Api
       def allowed_params
         params.require(:contact_group).permit(
           :name, :phone, :email, :comments,
-          location_attributes: [:city, :state, :country, :zipcode, :street],
-          contacts_attributes: [
-            :id, :first_name, :last_name, :job_title, :phone, :email, :comments,
-            location_attributes: [:city, :state, :country, :zipcode, :street]
-          ],
-          venues_attributes: [
-            :id, :name, :kind, :phone, :email, :comments,
-            location_attributes: [:city, :state, :country, :zipcode, :street]
-          ]
+          location_attributes: [:city, :state, :country, :zipcode, :street]
         )
       end
 
       def ensure_record
-        @record = ContactGroup.find(params[:id])
+        @record = VenueGroup.find(params[:id])
       end
     end
   end

@@ -1,6 +1,6 @@
 module Serialize
   module Models
-    class Venue < Presenter
+    class VenueGroup < Presenter
       class Index < Presenter
         def initialize(array)
           @array = array
@@ -9,10 +9,8 @@ module Serialize
         def as_json(*)
           @array.map do |object|
             {
-              venue_group_id: @object.venue_group_id,
-              venue_group_name: organization_name,
               id: @object.id,
-              name: @object.name,
+              name: @object.name || @object.default_name,
               phone: @object.phone,
               email: @object.email
             }
@@ -23,18 +21,20 @@ module Serialize
       # show
       def as_json(*)
         {
-          venue_group_id: @object.venue_group_id,
-          venue_group_name: organization_name,
           id: @object.id,
-          name: @object.name,
+          name: @object.name || @object.default_name,
           phone: @object.phone,
           email: @object.email,
           location: location_details,
-          contacts: contacts,
-          events: @object.events.map do |event|
-            Serialize::Models::Events.new(event).as_json
-          end
+          venues: venues,
+          contacts: contacts
         }
+      end
+
+      def venues
+        @object.venues.map do |venue|
+          Serialize::Models::Venue.new(venue).as_json
+        end
       end
 
       def contacts
@@ -43,14 +43,9 @@ module Serialize
         end
       end
 
-      def organization_name
-        return nil unless @object.venue_group
-        @object.venue_group.name || @object.venue_group.default_name
-      end
-
       def location_details
-        return {} unless @object.location
-        Serialize::Models::Location.new(@object.location).as_json
+        return nil unless @object.location
+        Serialize::Models::Location.new(@object.location)
       end
     end
   end

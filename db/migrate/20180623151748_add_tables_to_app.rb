@@ -1,7 +1,7 @@
 class AddTablesToApp < ActiveRecord::Migration[5.2]
   def change
-    create_table :contact_groups do |t|
-      t.string :name, null: false, default: "Anonymous"
+    create_table :venue_groups do |t|
+      t.string :name
       t.text :comments
       t.string :email
       t.string :phone
@@ -15,10 +15,9 @@ class AddTablesToApp < ActiveRecord::Migration[5.2]
       t.string :email
       t.string :phone
       t.text :comments
-      t.integer :contact_group_id
+      t.references :connectable, polymorphic: true
       t.timestamps
     end
-    add_index :contacts, :contact_group_id
 
     create_table :venues do |t|
       t.string :name, null: false
@@ -27,10 +26,10 @@ class AddTablesToApp < ActiveRecord::Migration[5.2]
       t.string :email
       t.string :phone
       t.text :comments
-      t.integer :contact_group_id
+      t.integer :venue_group_id
       t.timestamps
     end
-    add_index :venues, :contact_group_id
+    add_index :venues, :venue_group_id
 
     create_table :locations do |t|
       t.string :country, null: false, default: 'USA'

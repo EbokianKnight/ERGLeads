@@ -4,7 +4,7 @@ class Contact < ApplicationRecord
   validates :phone, phone_number: true, allow_blank: true
   validates :email, email: true, allow_blank: true
 
-  belongs_to :contact_group, optional: true
+  belongs_to :connectable, polymorphic: true, optional: true
   has_one :location, as: :addressable
 
   accepts_nested_attributes_for :location

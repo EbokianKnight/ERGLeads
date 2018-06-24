@@ -3,6 +3,7 @@ module Serialize
     class Location < Presenter
       def as_json(*)
         {
+          id: @object.id,
           full_address: @object.address,
           country: @object.country,
           state: @object.state,
