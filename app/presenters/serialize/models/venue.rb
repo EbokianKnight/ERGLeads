@@ -9,12 +9,12 @@ module Serialize
         def as_json(*)
           @array.map do |object|
             {
-              venue_group_id: @object.venue_group_id,
-              venue_group_name: organization_name,
-              id: @object.id,
-              name: @object.name,
-              phone: @object.phone,
-              email: @object.email
+              venue_group_id: object.venue_group_id,
+              venue_group_name: object.organization_name,
+              id: object.id,
+              name: object.name,
+              phone: object.phone,
+              email: object.email
             }
           end
         end
@@ -24,7 +24,7 @@ module Serialize
       def as_json(*)
         {
           venue_group_id: @object.venue_group_id,
-          venue_group_name: organization_name,
+          venue_group_name: @object.organization_name,
           id: @object.id,
           name: @object.name,
           phone: @object.phone,
@@ -33,7 +33,9 @@ module Serialize
           contacts: contacts,
           events: @object.events.map do |event|
             Serialize::Models::Events.new(event).as_json
-          end
+          end,
+          created_at: @object.created_at,
+          updated_at: @object.updated_at
         }
       end
 
@@ -41,11 +43,6 @@ module Serialize
         @object.contacts.map do |contact|
           Serialize::Models::Contact.new(contact).as_json
         end
-      end
-
-      def organization_name
-        return nil unless @object.venue_group
-        @object.venue_group.name || @object.venue_group.default_name
       end
 
       def location_details

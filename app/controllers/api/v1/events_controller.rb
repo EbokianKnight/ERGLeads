@@ -8,7 +8,7 @@ module Api
       end
 
       def index
-        render json: Event.all, status: 200
+        render json: Event, status: 200
       end
 
       def create

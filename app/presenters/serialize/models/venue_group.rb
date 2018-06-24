@@ -9,10 +9,10 @@ module Serialize
         def as_json(*)
           @array.map do |object|
             {
-              id: @object.id,
-              name: @object.name || @object.default_name,
-              phone: @object.phone,
-              email: @object.email
+              id: object.id,
+              name: object.name || object.default_name,
+              phone: object.phone,
+              email: object.email
             }
           end
         end
@@ -27,7 +27,9 @@ module Serialize
           email: @object.email,
           location: location_details,
           venues: venues,
-          contacts: contacts
+          contacts: contacts,
+          created_at: @object.created_at,
+          updated_at: @object.updated_at
         }
       end
 

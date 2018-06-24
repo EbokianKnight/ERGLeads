@@ -8,7 +8,7 @@ module Api
       end
 
       def index
-        render json: Contact.all, status: 200
+        render json: Contact, status: 200
       end
 
       def create

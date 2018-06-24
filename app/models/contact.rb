@@ -8,13 +8,4 @@ class Contact < ApplicationRecord
   has_one :location, as: :addressable
 
   accepts_nested_attributes_for :location
-
-  before_create :ensure_contact_group
-
-  def ensure_contact_group
-    if contact_group_id.blank?
-      new_contact_group = ContactGroup.create
-      self.contact_group_id = new_contact_group.id
-    end
-  end
 end

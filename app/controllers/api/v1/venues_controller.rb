@@ -8,7 +8,7 @@ module Api
       end
 
       def index
-        render json: Venue.all, status: 200
+        render json: Venue, status: 200
       end
 
       def create

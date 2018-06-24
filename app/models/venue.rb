@@ -32,4 +32,9 @@ class Venue < ApplicationRecord
     return true unless kind == 'other'
     errors.add(:other_kind, :blank) unless other_kind.present?
   end
+
+  def organization_name
+    return nil unless venue_group
+    venue_group.name || venue_group.default_name
+  end
 end
