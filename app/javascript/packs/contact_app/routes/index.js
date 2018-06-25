@@ -2,13 +2,15 @@ import React from 'react'
 import { ConnectedRouter } from 'connected-react-router'
 import { Route, Switch } from 'react-router'
 
-import LandingPage from './components/landingPage';
+import Application from '../layouts/application.js';
+import Contacts from './Contacts';
 
 const Router = (props) => (
   <ConnectedRouter { ...props }>
-    <div>
-      <Route exact path='/' component={LandingPage} />
-    </div>
+    <Application>
+      <Route exact path='/' component={Contacts} />
+    </Application>
   </ConnectedRouter>
-)
+);
+
 export default Router;

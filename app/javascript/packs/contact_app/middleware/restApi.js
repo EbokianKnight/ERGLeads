@@ -28,7 +28,6 @@ class RestApi {
   }
 
   get(id = null) {
-    console.log('#get')
     const url = `${this.base_url}${ id ? '/' + id : ''}`;
     return fetchAsync(url, buildRequest());
   }
