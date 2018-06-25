@@ -1,9 +1,13 @@
 import React from 'react';
+import { Button } from 'reactstrap';
+import ContactTable from './contactTable';
+
 class LandingPage extends React.Component {
   render() {
     return(
-      <div>
-        <h1>Hello World</h1>
+      <div class="contact-app-container">
+        The Content will render here.
+        <ContactTable/>
       </div>
     )
   }

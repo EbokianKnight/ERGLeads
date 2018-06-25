@@ -5,9 +5,9 @@ import { applyMiddleware, compose, createStore } from 'redux';
 import { connectRouter, routerMiddleware } from 'connected-react-router'
 
 const createApplicationStore = (history, initialState = {}) => {
-  console.log('window', window.ERGBuild)
   // Middleware
-  let middlewares = [history, thunk];
+
+  let middlewares = [routerMiddleware(history), thunk];
   if (window.ERGBuild.env == "development") {
     middlewares.push(logger);
   }
@@ -28,7 +28,7 @@ const createApplicationStore = (history, initialState = {}) => {
   return createStore(
     connectRouter(history)(rootReducer),
     initialState,
-    composeEnhancers(applyMiddleware(routerMiddleware(...middlewares), ...enhancers)),
+    composeEnhancers(applyMiddleware(...middlewares), ...enhancers),
   );
 }
 

@@ -12,8 +12,8 @@ export const RECEIVE_VENUES = 'RECEIVE_VENUES';
 // Actions
 // ------------------------------------
 
-const receiveVenue = (data) => ({ type: RECEIVE_VENUE, data });
-const receiveVenues = (data) => ({ type: RECEIVE_VENUES, data });
+const receiveRecord = (data) => ({ type: RECEIVE_VENUE, data });
+const receiveRecords = (data) => ({ type: RECEIVE_VENUES, data });
 const receiveErrors = (data) => ({ type: RECEIVE_VENUE_ERRORS, data });
 
 // ------------------------------------
@@ -22,40 +22,40 @@ const receiveErrors = (data) => ({ type: RECEIVE_VENUE_ERRORS, data });
 
 const VenueApi = new RestApi('/api/v1/venues');
 
-const getVenue = (id) => (dispatch, getState) => {
+const show = (id) => (dispatch, getState) => {
   VenueApi.get(id)
-    .then((res) => dispatch(receiveVenue(res)))
+    .then((res) => dispatch(receiveRecord(res)))
     .catch((err) => dispatch(receiveErrors(err)))
 }
 
-const getVenues = () => (dispatch, getState) => {
+const index = () => (dispatch, getState) => {
   VenueApi.get()
-    .then((res) => dispatch(receiveVenues(res)))
+    .then((res) => dispatch(receiveRecords(res)))
     .catch((err) => dispatch(receiveErrors(err)))
 }
 
-const newVenue = (id, data) => (dispatch, getState) => {
-  VenueApi.post(id, data)
-    .then((res) => dispatch(receiveVenue(res)))
+const create = (data) => (dispatch, getState) => {
+  VenueApi.post(data)
+    .then((res) => dispatch(receiveRecord(res)))
     .catch((err) => dispatch(receiveErrors(err)))
 }
 
-const updateVenue = (id, data) => (dispatch, getState) => {
+const update = (id, data) => (dispatch, getState) => {
   VenueApi.patch(id, data)
-    .then((res) => dispatch(receiveVenue(res)))
+    .then((res) => dispatch(receiveRecord(res)))
     .catch((err) => dispatch(receiveErrors(err)))
 }
 
-const destroyVenue = (id) => (dispatch, getState) => {
+const destroy = (id) => (dispatch, getState) => {
   VenueApi.delete(id)
-    .then((res) => dispatch(receiveVenue(res)))
+    .then((res) => dispatch(receiveRecord(res)))
     .catch((err) => dispatch(receiveErrors(err)))
 }
 
 export default {
-  show: getVenue,
-  index: getVenues,
-  create: newVenue,
-  update: updateVenue,
-  destroy: destroyVenue,
+  show,
+  index,
+  create,
+  update,
+  destroy
 };

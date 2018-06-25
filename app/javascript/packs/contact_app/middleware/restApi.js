@@ -43,8 +43,8 @@ class RestApi {
     return fetchAsync(url, buildRequest({ method: 'PATCH', data }));
   }
 
-  post(id, data = {}) {
-    const url = `${this.base_url}/${id}`;
+  post(data = {}) {
+    const url = `${this.base_url}`;
     return fetchAsync(url, buildRequest({ method: 'POST', data }));
   }
 

@@ -12,8 +12,8 @@ export const RECEIVE_CONTACTS = 'RECEIVE_CONTACTS';
 // Actions
 // ------------------------------------
 
-const receiveContact = (data) => ({ type: RECEIVE_CONTACT, data });
-const receiveContacts = (data) => ({ type: RECEIVE_CONTACTS, data });
+const receiveRecord = (data) => ({ type: RECEIVE_CONTACT, data });
+const receiveRecords = (data) => ({ type: RECEIVE_CONTACTS, data });
 const receiveErrors = (data) => ({ type: RECEIVE_CONTACT_ERRORS, data });
 
 // ------------------------------------
@@ -22,40 +22,40 @@ const receiveErrors = (data) => ({ type: RECEIVE_CONTACT_ERRORS, data });
 
 const ContactApi = new RestApi('/api/v1/contacts');
 
-const getContact = (id) => (dispatch, getState) => {
+const show = (id) => (dispatch, getState) => {
   ContactApi.get(id)
-    .then((res) => dispatch(receiveContact(res)))
+    .then((res) => dispatch(receiveRecord(res)))
     .catch((err) => dispatch(receiveErrors(err)))
 }
 
-const getContacts = () => (dispatch, getState) => {
+const index = () => (dispatch, getState) => {
   ContactApi.get()
-    .then((res) => dispatch(receiveContacts(res)))
+    .then((res) => dispatch(receiveRecords(res)))
     .catch((err) => dispatch(receiveErrors(err)))
 }
 
-const newContact = (id, data) => (dispatch, getState) => {
-  ContactApi.post(id, data)
-    .then((res) => dispatch(receiveContact(res)))
+const create = (data) => (dispatch, getState) => {
+  ContactApi.post(data)
+    .then((res) => dispatch(receiveRecord(res)))
     .catch((err) => dispatch(receiveErrors(err)))
 }
 
-const updateContact = (id, data) => (dispatch, getState) => {
+const update = (id, data) => (dispatch, getState) => {
   ContactApi.patch(id, data)
-    .then((res) => dispatch(receiveContact(res)))
+    .then((res) => dispatch(receiveRecord(res)))
     .catch((err) => dispatch(receiveErrors(err)))
 }
 
-const destroyContact = (id) => (dispatch, getState) => {
+const destroy = (id) => (dispatch, getState) => {
   ContactApi.delete(id)
-    .then((res) => dispatch(receiveContact(res)))
+    .then((res) => dispatch(receiveRecord(res)))
     .catch((err) => dispatch(receiveErrors(err)))
 }
 
 export default {
-  show: getContact,
-  index: getContacts,
-  create: newContact,
-  update: updateContact,
-  destroy: destroyContact,
+  show,
+  index,
+  create,
+  update,
+  destroy,
 };

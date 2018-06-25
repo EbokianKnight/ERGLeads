@@ -14,7 +14,8 @@ module Serialize
               id: object.id,
               name: object.name,
               phone: object.phone,
-              email: object.email
+              email: object.email,
+              location: location_details(object)
             }
           end
         end
@@ -29,7 +30,7 @@ module Serialize
           name: @object.name,
           phone: @object.phone,
           email: @object.email,
-          location: location_details,
+          location: location_details(@object),
           contacts: contacts,
           events: @object.events.map do |event|
             Serialize::Models::Events.new(event).as_json
@@ -45,9 +46,9 @@ module Serialize
         end
       end
 
-      def location_details
-        return {} unless @object.location
-        Serialize::Models::Location.new(@object.location).as_json
+      def location_details(object)
+        return {} unless object.location
+        Serialize::Models::Location.new(object.location).as_json
       end
     end
   end

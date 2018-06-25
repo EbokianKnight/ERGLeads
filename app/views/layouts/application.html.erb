@@ -8,6 +8,9 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
+    <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
     <% if @current_user %>
       <%= javascript_pack_tag 'contact_app/index' %>
       <%= stylesheet_pack_tag 'contact_app/assets/stylesheets/app' %>
@@ -17,10 +20,12 @@
   <script type="text/javascript" language="javascript">
     window.ERGBuild = {};
     window.ERGBuild.env = "<%= Rails.env %>";
-    window.ERGBuild.current_user = {
-      id: '<%= @current_user&.id %>',
-      email: '<%= @current_user&.email %>'
-    };
+    window.ERGBuild.initialState = {
+      user: {
+        id: '<%= @current_user&.id %>',
+        email: '<%= @current_user&.email %>'
+      }
+    }
   </script>
 
   <body>

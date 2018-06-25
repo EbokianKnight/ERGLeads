@@ -1,7 +1,7 @@
 module Serialize
   module Models
     class VenueGroup < Presenter
-      class Index < Presenter
+      class Index < VenueGroup
         def initialize(array)
           @array = array
         end
@@ -12,7 +12,8 @@ module Serialize
               id: object.id,
               name: object.name || object.default_name,
               phone: object.phone,
-              email: object.email
+              email: object.email,
+              location: location_details(object)
             }
           end
         end
@@ -25,7 +26,7 @@ module Serialize
           name: @object.name || @object.default_name,
           phone: @object.phone,
           email: @object.email,
-          location: location_details,
+          location: location_details(@object),
           venues: venues,
           contacts: contacts,
           created_at: @object.created_at,
@@ -45,9 +46,9 @@ module Serialize
         end
       end
 
-      def location_details
-        return nil unless @object.location
-        Serialize::Models::Location.new(@object.location)
+      def location_details(object)
+        return nil unless object.location
+        Serialize::Models::Location.new(object.location)
       end
     end
   end

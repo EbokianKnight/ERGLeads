@@ -1,7 +1,7 @@
 module Serialize
   module Models
     class Contact < Presenter
-      class Index < Presenter
+      class Index < Contact
         def initialize(array)
           @array = array
         end
@@ -15,7 +15,8 @@ module Serialize
               first_name: object.first_name,
               last_name: object.last_name,
               phone: object.phone,
-              email: object.email
+              email: object.email,
+              location: location_details(object)
             }
           end
         end
@@ -32,15 +33,15 @@ module Serialize
           job_title: @object.job_title,
           phone: @object.phone,
           email: @object.email,
-          location: location_details,
+          location: location_details(@object),
           created_at: @object.created_at,
           updated_at: @object.updated_at
         }
       end
 
-      def location_details
-        return {} unless @object.location
-        Serialize::Models::Location.new(@object.location).as_json
+      def location_details(object)
+        return {} unless object.location
+        Serialize::Models::Location.new(object.location).as_json
       end
     end
   end
