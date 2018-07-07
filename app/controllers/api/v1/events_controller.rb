@@ -30,6 +30,10 @@ module Api
 
       attr_reader :record
 
+      def present_records
+        Serialize::Models::Event::Index.new(Event.order(date: :desc))
+      end
+
       def allowed_params
         params.require(:event).permit(
           :date, :name, :description, :venue_id

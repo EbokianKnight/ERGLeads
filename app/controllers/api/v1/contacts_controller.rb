@@ -8,7 +8,7 @@ module Api
       end
 
       def index
-        render json: { contacts: Contact }, status: 200
+        render json: { contacts: present_records }, status: 200
       end
 
       def create
@@ -29,6 +29,10 @@ module Api
       private
 
       attr_reader :record
+
+      def present_records
+        Serialize::Models::Contact::Index.new(Contact.order(:last_name))
+      end
 
       def allowed_params
         params.require(:contact).permit(

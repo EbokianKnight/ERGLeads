@@ -8,7 +8,7 @@ module Api
       end
 
       def index
-        render json: { venues: Venue }, status: 200
+        render json: { venues: present_records }, status: 200
       end
 
       def create
@@ -29,6 +29,10 @@ module Api
       private
 
       attr_reader :record
+
+      def present_records
+        Serialize::Models::Venue::Index.new(Venue.order(:name))
+      end
 
       def allowed_params
         params.require(:venue).permit(
