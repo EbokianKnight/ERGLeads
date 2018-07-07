@@ -96,6 +96,7 @@ class Contacts extends React.Component {
 
     const checkboxProps = {
       selectAll: this.state.selectAll,
+      keyField: 'id',
       isSelected,
       toggleSelection,
       toggleAll,

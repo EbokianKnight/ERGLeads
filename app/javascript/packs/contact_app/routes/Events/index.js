@@ -1,7 +1,7 @@
 // ------------------------------------
 // Smart Component
 // ------------------------------------
-
+import moment from 'moment';
 import React from 'react';
 import ReactTable from "react-table";
 import { normalizeString } from '../../utils';
@@ -40,7 +40,13 @@ class Events extends React.Component {
   }
 
   render() {
-    const data = this.props.data.events
+    const data = this.props.data.events.map((event) => ({
+      id: event.id,
+      name: event.name,
+      venue_name: event.venue_name,
+      date: moment(event.date).format("dddd, MMMM DD, YYYY"),
+      time: moment(event.date).format("LT")
+    }))
 
     const columns = [{
       Header: 'Event Name',
@@ -49,11 +55,19 @@ class Events extends React.Component {
       style: { cursor: 'pointer' }
     }, {
       Header: 'Venue',
-      accessor: 'venue_name'
+      accessor: 'venue_name',
+      style: { cursor: 'pointer' }
     }, {
       id: 'date',
       Header: 'Date',
-      accessor: 'date'
+      accessor: 'date',
+      sortMethod: (a, b) => moment(a) - moment(b)
+    }, {
+      id: 'time',
+      Header: 'Time',
+      accessor: 'time',
+      width: 100,
+      sortMethod: (a, b) => moment(a) - moment(b)
     }];
 
     return <ReactTable
