@@ -9,3 +9,4 @@
 
 import 'bootstrap'
 import './src/application.scss'
+import 'react-table/react-table.css'

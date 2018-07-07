@@ -1,4 +1,5 @@
 @import '~bootstrap/scss/bootstrap';
+@import 'react-table/react-table.css';
 
 .contact-app-container {
   display: grid;
@@ -9,5 +10,27 @@
 .contact-app-main {
   grid-column: main;
   padding: 20px;
-  border: 1px solid #ccc;
+}
+
+.table-navigation {
+  display: flex;
+  flex-direction: row;
+  background: #ccc;
+  text-align: center;
+  align-items: stretch;
+  margin-bottom: 5px;
+
+  > div.active-link {
+    background: #aaa;
+  }
+
+  > div {
+    margin: auto;
+    padding: 20px;
+    cursor: pointer;
+    flex: 1;
+    &:hover {
+      background: #888;
+    }
+  }
 }
