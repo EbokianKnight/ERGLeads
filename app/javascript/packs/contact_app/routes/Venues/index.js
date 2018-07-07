@@ -49,15 +49,21 @@ class Venues extends React.Component {
     }, {
       id: 'phone',
       Header: 'Phone Number',
-      accessor: 'phone'
+      accessor: 'phone',
+      width: 150,
     }, {
       id: 'type_of_venue',
       Header: 'Type of Venue',
       accessor: 'type_of_venue'
     }, {
-      id: 'location.full_address',
-      Header: 'Address',
-      accessor: data => data.location.full_address
+      id: 'location.city',
+      Header: 'City',
+      accessor: data => data.location.city
+    }, {
+      id: 'location.state',
+      Header: 'State',
+      width: 60,
+      accessor: data => data.location.state
     }]
 
     return <ReactTable

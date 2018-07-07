@@ -49,7 +49,8 @@ class VenueGroups extends React.Component {
     }, {
       id: 'phone',
       Header: 'Phone Number',
-      accessor: 'phone'
+      accessor: 'phone',
+      width: 150,
     }, {
       id: 'email',
       Header: 'Email Address',

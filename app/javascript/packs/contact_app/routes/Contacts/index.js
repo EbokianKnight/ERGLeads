@@ -112,15 +112,21 @@ class Contacts extends React.Component {
     }, {
       id: 'phone',
       Header: 'Phone Number',
-      accessor: 'phone'
+      accessor: 'phone',
+      width: 150,
     }, {
       id: 'email',
       Header: 'Email Address',
       accessor: 'email'
     }, {
-      id: 'location.full_address',
-      Header: 'Address',
-      accessor: data => data.location.full_address
+      id: 'location.city',
+      Header: 'City',
+      accessor: data => data.location.city
+    }, {
+      id: 'location.state',
+      Header: 'State',
+      width: 60,
+      accessor: data => data.location.state
     }]
 
     return <CheckboxTable
