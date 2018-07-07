@@ -12,6 +12,7 @@ module Serialize
               connectable_id: object.connectable_id,
               connectable_type: object.connectable_type,
               id: object.id,
+              full_name: "#{object.first_name} #{object.last_name}".squish,
               first_name: object.first_name,
               last_name: object.last_name,
               phone: object.phone,

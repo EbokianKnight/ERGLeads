@@ -26,7 +26,13 @@ class Venue < ApplicationRecord
   has_one :location, as: :addressable
   has_many :events
 
+  accepts_nested_attributes_for :location
   accepts_nested_attributes_for :events
+
+  def type_of_venue
+    return other_kind if kind == 'other'
+    kind
+  end
 
   def other_kinds_required?
     return true unless kind == 'other'

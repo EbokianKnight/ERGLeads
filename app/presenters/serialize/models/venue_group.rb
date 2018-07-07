@@ -35,15 +35,11 @@ module Serialize
       end
 
       def venues
-        @object.venues.map do |venue|
-          Serialize::Models::Venue.new(venue).as_json
-        end
+        Serialize::Models::Venue::Index.new(@object.venues).as_json
       end
 
       def contacts
-        @object.contacts.map do |contact|
-          Serialize::Models::Contact.new(contact).as_json
-        end
+        Serialize::Models::Contact::Index.new(@object.contacts).as_json
       end
 
       def location_details(object)
