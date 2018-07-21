@@ -1,6 +1,8 @@
+require 'venues_from_csv'
+
 namespace :uploaders do
   desc 'Upload master database from excel'
   task venues: :environment do
-    Uploaders::Venues.new.run
+    VenuesFromCsv.new(replace_records: true).run
   end
 end

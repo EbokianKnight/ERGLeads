@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_23_202050) do
+ActiveRecord::Schema.define(version: 2018_07_21_180648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 2018_06_23_202050) do
     t.string "phone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "website"
   end
 
   create_table "venues", force: :cascade do |t|
@@ -89,6 +90,7 @@ ActiveRecord::Schema.define(version: 2018_06_23_202050) do
     t.integer "venue_group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "website"
     t.index ["venue_group_id"], name: "index_venues_on_venue_group_id"
   end
 
