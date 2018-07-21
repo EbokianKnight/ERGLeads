@@ -11,7 +11,7 @@ module Serialize
             {
               id: object.id,
               name: object.name || object.default_name,
-              phone: object.phone,
+              phone: draw_phone_number(object.phone),
               email: object.email,
               website: object.website,
               location: location_details(object)
@@ -25,7 +25,7 @@ module Serialize
         {
           id: @object.id,
           name: @object.name || @object.default_name,
-          phone: @object.phone,
+          phone: draw_phone_number(@object.phone),
           email: @object.email,
           location: location_details(@object),
           venues: venues,

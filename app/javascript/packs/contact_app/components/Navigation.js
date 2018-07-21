@@ -27,15 +27,15 @@ import { push } from 'connected-react-router';
 
 const mapStateToProps = (state, ownProps) => ({
   links: {
-    contacts: {
-      path: '/',
-      active: '/' == state.router.location.pathname,
-      title: 'Contacts'
-    },
     venues: {
       path: '/venues',
       active: '/venues' == state.router.location.pathname,
       title: 'Venues'
+    },
+    contacts: {
+      path: '/',
+      active: '/' == state.router.location.pathname,
+      title: 'Contacts'
     },
     groups: {
       path: '/groups',

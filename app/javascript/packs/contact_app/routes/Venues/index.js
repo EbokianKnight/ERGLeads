@@ -42,6 +42,16 @@ class Venues extends React.Component {
     const data = this.props.data.venues
 
     const columns = [{
+      id: 'website',
+      Header: 'Web',
+      maxWidth: 50,
+      accessor: 'website',
+      Filter: (row) => null,
+      Cell: (row) => {
+        if (!row.value) return null
+        return <a href={row.value} target="_blank">link</a>
+      }
+    }, {
       Header: 'Location Name',
       accessor: 'name',
       maxWidth: 300,
@@ -52,18 +62,19 @@ class Venues extends React.Component {
       accessor: 'phone',
       width: 150,
     }, {
-      id: 'type_of_venue',
-      Header: 'Type of Venue',
-      accessor: 'type_of_venue'
-    }, {
       id: 'location.city',
       Header: 'City',
+      width: 150,
       accessor: data => data.location.city
     }, {
       id: 'location.state',
       Header: 'State',
       width: 60,
       accessor: data => data.location.state
+    }, {
+      id: 'type_of_venue',
+      Header: 'Type of Venue',
+      accessor: 'type_of_venue'
     }]
 
     return <ReactTable
@@ -93,7 +104,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(venueActions, dispatch),
+  actions: bindActionCreators(venueActions, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Venues);

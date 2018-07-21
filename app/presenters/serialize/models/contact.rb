@@ -15,7 +15,7 @@ module Serialize
               full_name: "#{object.first_name} #{object.last_name}".squish,
               first_name: object.first_name,
               last_name: object.last_name,
-              phone: object.phone,
+              phone: draw_phone_number(object.phone),
               email: object.email,
               location: location_details(object)
             }
@@ -32,7 +32,7 @@ module Serialize
           first_name: @object.first_name,
           last_name: @object.last_name,
           job_title: @object.job_title,
-          phone: @object.phone,
+          phone: draw_phone_number(@object),
           email: @object.email,
           location: location_details(@object),
           created_at: @object.created_at,

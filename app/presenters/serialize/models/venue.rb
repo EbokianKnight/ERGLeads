@@ -14,7 +14,7 @@ module Serialize
               id: object.id,
               type_of_venue: object.type_of_venue,
               name: object.name,
-              phone: object.phone,
+              phone: draw_phone_number(object.phone),
               email: object.email,
               website: object.website,
               location: location_details(object)
@@ -32,7 +32,7 @@ module Serialize
           kind: @object.kind,
           other_kind: @object.other_kind,
           name: @object.name,
-          phone: @object.phone,
+          phone: draw_phone_number(@object.phone),
           email: @object.email,
           location: location_details(@object),
           contacts: contacts,
