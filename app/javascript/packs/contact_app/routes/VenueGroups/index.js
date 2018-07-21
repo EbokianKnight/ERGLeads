@@ -63,7 +63,7 @@ class VenueGroups extends React.Component {
       columns={columns}
       minRows={5}
       filterable={true}
-      pageSizeOptions={[10, 20, 50, 100, 10000]}
+      pageSizeOptions={[10, 20, 50, 100, 500]}
       defaultPageSize={20}
       defaultFilterMethod={this.customFiltering}
       getTdProps={this.handleClick}
