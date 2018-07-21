@@ -36,7 +36,7 @@ module Api
 
       def allowed_params
         params.require(:venue_group).permit(
-          :name, :phone, :email, :comments,
+          :name, :phone, :email, :comments, :website,
           location_attributes: [:city, :state, :country, :zipcode, :street]
         )
       end

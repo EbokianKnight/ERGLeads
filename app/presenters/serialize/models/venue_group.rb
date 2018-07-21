@@ -13,6 +13,7 @@ module Serialize
               name: object.name || object.default_name,
               phone: object.phone,
               email: object.email,
+              website: object.website,
               location: location_details(object)
             }
           end
