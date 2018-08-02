@@ -14,7 +14,7 @@ export const RECEIVE_CONTACTS = 'RECEIVE_CONTACTS';
 
 const receiveRecord = (data) => ({ type: RECEIVE_CONTACT, data });
 const receiveRecords = (data) => ({ type: RECEIVE_CONTACTS, data });
-const receiveErrors = (data) => ({ type: RECEIVE_CONTACT_ERRORS, data });
+const receiveErrors = (data) => ({ type: RECEIVE_CONTACT_ERRORS, data: data.errors });
 
 // ------------------------------------
 // Api Actions

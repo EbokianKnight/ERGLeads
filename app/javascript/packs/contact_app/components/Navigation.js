@@ -36,16 +36,6 @@ const mapStateToProps = (state, ownProps) => ({
       path: '/',
       active: '/' == state.router.location.pathname,
       title: 'Contacts'
-    },
-    groups: {
-      path: '/groups',
-      active: '/groups' == state.router.location.pathname,
-      title: 'Groups'
-    },
-    events: {
-      path: '/events',
-      active: '/events' == state.router.location.pathname,
-      title: 'Events'
     }
   },
 })

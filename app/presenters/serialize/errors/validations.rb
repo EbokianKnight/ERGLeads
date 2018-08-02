@@ -3,7 +3,12 @@ module Serialize
     class Validations < Serialize::Errors::Base
 
       def as_json(*)
-        super.merge(errors: package_errors)
+        {
+          code: 'validations_failed',
+          status: 400,
+          errors: package_errors
+        }
+        # super.merge(errors: package_errors)
       end
 
       private

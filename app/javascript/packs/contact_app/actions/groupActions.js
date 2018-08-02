@@ -14,7 +14,7 @@ export const RECEIVE_VENUE_GROUPS = 'RECEIVE_VENUE_GROUPS';
 
 const receiveRecord = (data) => ({ type: RECEIVE_VENUE_GROUP, data });
 const receiveRecords = (data) => ({ type: RECEIVE_VENUE_GROUPS, data });
-const receiveErrors = (data) => ({ type: RECEIVE_VENUE_GROUP_ERRORS, data });
+const receiveErrors = (data) => ({ type: RECEIVE_VENUE_GROUP_ERRORS, data: data.errors });
 
 // ------------------------------------
 // Api Actions

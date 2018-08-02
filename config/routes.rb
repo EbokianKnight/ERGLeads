@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   end
 
   get 'venues', to: "pages#root"
+  get 'venues/new', to: "pages#root"
+  get 'venues/:id', to: "pages#root"
   get 'groups', to: "pages#root"
   get 'events', to: "pages#root"
   get 'contacts', to: "pages#root"

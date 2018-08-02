@@ -7,14 +7,14 @@ import Contacts from './Contacts';
 import Venues from './Venues';
 import Events from './Events';
 import VenueGroups from './VenueGroups';
+/* <Route exact path='/groups' component={VenueGroups} />
+<Route exact path='/events' component={Events} /> */
 
 const Router = (props) => (
   <ConnectedRouter { ...props }>
     <Application>
       <Route exact path='/' component={Contacts} />
       <Route exact path='/contacts' component={Contacts} />
-      <Route exact path='/groups' component={VenueGroups} />
-      <Route exact path='/events' component={Events} />
       <Route exact path='/venues' component={Venues} />
     </Application>
   </ConnectedRouter>

@@ -108,25 +108,28 @@ class Contacts extends React.Component {
       Header: 'Full Name',
       accessor: 'full_name',
       maxWidth: 300,
-      style: { cursor: 'pointer' }
-    }, {
-      id: 'phone',
-      Header: 'Phone Number',
-      accessor: 'phone',
-      width: 150,
-    }, {
-      id: 'email',
-      Header: 'Email Address',
-      accessor: 'email'
-    }, {
-      id: 'location.city',
-      Header: 'City',
-      accessor: data => data.location.city
-    }, {
-      id: 'location.state',
-      Header: 'State',
-      width: 60,
-      accessor: data => data.location.state
+      style: { cursor: 'pointer' },
+      sortMethod: (a, b) =>
+        a.trim().split(' ').pop() > b.trim().split(' ').pop()
+      }, {
+        id: 'phone',
+        Header: 'Phone Number',
+        accessor: 'phone',
+        width: 150,
+      }, {
+        id: 'email',
+        Header: 'Email Address',
+        accessor: 'email'
+      }, {
+        id: 'location.city',
+        Header: 'City',
+        width: 150,
+        accessor: data => data.location.city
+      }, {
+        id: 'location.state',
+        Header: 'State',
+        width: 60,
+        accessor: data => data.location.state
     }]
 
     return <CheckboxTable

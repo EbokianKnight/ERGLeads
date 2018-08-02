@@ -11,7 +11,7 @@ const rootReducer = combineReducers({
   venues,
   user,
   venue_groups,
-  events,
+  events
 });
 
 export default rootReducer;

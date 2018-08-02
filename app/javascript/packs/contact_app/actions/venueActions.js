@@ -14,7 +14,7 @@ export const RECEIVE_VENUES = 'RECEIVE_VENUES';
 
 const receiveRecord = (data) => ({ type: RECEIVE_VENUE, data });
 const receiveRecords = (data) => ({ type: RECEIVE_VENUES, data });
-const receiveErrors = (data) => ({ type: RECEIVE_VENUE_ERRORS, data });
+const receiveErrors = (data) => ({ type: RECEIVE_VENUE_ERRORS, data: data.errors });
 
 // ------------------------------------
 // Api Actions

@@ -11,12 +11,30 @@ const ACTION_HANDLERS = {
   [RECEIVE_VENUES]: (state, action) => ({ ...state, ...action.data }),
 };
 
+const emptyVenue = {
+  id: null,
+  name: '',
+  phone: '',
+  email: '',
+  website: '',
+  kind: '',
+  other_kind: '',
+  comments: '',
+  location: {
+    country: 'USA',
+    state: '',
+    city: '',
+    street: '',
+    zipcode: ''
+  }
+}
+
 // ------------------------------------
 // Reducer
 // ------------------------------------
 const initialState = {
   venues: [],
-  venue: null,
+  venue: emptyVenue,
   errors: []
 };
 
