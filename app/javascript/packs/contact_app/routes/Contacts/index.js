@@ -15,7 +15,6 @@ class Contacts extends React.Component {
 
     // Boiler Plate function assignment, to be removed when I remember how.
     this.handleClick = this.handleClick.bind(this);
-    this.handleSelection = this.handleSelection.bind(this);
     this.customFiltering = this.customFiltering.bind(this);
     this.toggleSelection = this.toggleSelection.bind(this);
     this.toggleAll = this.toggleAll.bind(this);
@@ -44,12 +43,6 @@ class Contacts extends React.Component {
         if (handleOriginal) handleOriginal();
       }
     };
-  }
-
-  handleSelection(state, rowInfo, column, instance) {
-    if (!rowInfo) return {};
-    const selected = this.isSelected(rowInfo.original.id);
-    return { style: { backgroundColor: selected ? "lightblue" : "inherit" } };
   }
 
   isSelected(key) {
@@ -92,7 +85,7 @@ class Contacts extends React.Component {
 
   render() {
     const data = this.props.data.contacts
-    const { handleSelection, toggleSelection, toggleAll, isSelected, logSelection } = this;
+    const { toggleSelection, toggleAll, isSelected } = this;
 
     const checkboxProps = {
       selectAll: this.state.selectAll,
@@ -100,8 +93,7 @@ class Contacts extends React.Component {
       isSelected,
       toggleSelection,
       toggleAll,
-      selectType: "checkbox",
-      getTrProps: handleSelection,
+      selectType: "checkbox"
     };
 
     const columns = [{
@@ -132,19 +124,31 @@ class Contacts extends React.Component {
         accessor: data => data.location.state
     }]
 
-    return <CheckboxTable
-      ref={r => (this.checkboxTable = r)}
-      className="-highlight"
-      data={data}
-      columns={columns}
-      minRows={5}
-      filterable={true}
-      pageSizeOptions={[10, 20, 50, 100, 500]}
-      defaultPageSize={20}
-      defaultFilterMethod={this.customFiltering}
-      getTdProps={this.handleClick}
-      {...checkboxProps}
-    />;
+    const onExport = () => {
+      console.log('ARRAY OF IDS', this.state.selection)
+      this.props.makeCSV(this.state.selection);
+    }
+
+    return (
+      <div>
+        <CheckboxTable
+          ref={r => (this.checkboxTable = r)}
+          className="-highlight"
+          data={data}
+          columns={columns}
+          minRows={5}
+          filterable={true}
+          pageSizeOptions={[10, 20, 50, 100, 500]}
+          defaultPageSize={20}
+          defaultFilterMethod={this.customFiltering}
+          getTdProps={this.handleClick}
+          {...checkboxProps}
+        />
+        <a href={this.props.makeCSV(this.state.selection)} download>
+          <button>Export CSV</button>
+        </a>
+      </div>
+    );
   }
 }
 
@@ -155,9 +159,11 @@ class Contacts extends React.Component {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import contactActions from '../../actions/contactActions';
+import { queryString } from '../../middleware/restApi';
 
 const mapStateToProps = (state, ownProps) => ({
   data: state.contacts,
+  makeCSV: (ids) => `/api/v1/contact_csvs.csv?${queryString({ contact_ids: ids })}`
 })
 
 const mapDispatchToProps = (dispatch) => ({

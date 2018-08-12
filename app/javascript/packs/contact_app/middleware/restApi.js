@@ -10,6 +10,12 @@ async function fetchAsync (url, options) {
   throw(data)
 }
 
+async function simpleFetch (url, options) {
+  let promise = fetch(new Request(url, options));
+  let response = await promise;
+  console.log('SIMPLE', response);
+}
+
 const buildRequest = (opts = {}) => {
   return {
     credentials: 'same-origin',
@@ -22,15 +28,30 @@ const buildRequest = (opts = {}) => {
   }
 }
 
+export const queryString = (params) => {
+  const keys = Object.keys(params)
+  let strings = []
+  keys.forEach((k, i) => {
+    if (Array.isArray(params[k])) {
+      params[k].forEach(p => strings.push(`${k}[]=${p}`))
+    } else {
+      strings.push(`${k}=${params[k]}`)
+    }
+  })
+  return strings.join('&')
+}
+
 class RestApi {
   constructor(base_url, opts) {
     this.base_url = base_url;
     this.opts = opts || {};
   }
 
-  get(id = null) {
+  get(id = null, data = null, skipFetch = false) {
     const url = `${this.base_url}${ id ? '/' + id : ''}`;
-    return fetchAsync(url, buildRequest(this.opts));
+    const query = data ? `?${queryString(data)}` : ''
+    if (skipFetch) return simpleFetch(url + query, buildRequest(this.opts));
+    return fetchAsync(url + query, buildRequest(this.opts));
   }
 
   put(id, data = {}) {
