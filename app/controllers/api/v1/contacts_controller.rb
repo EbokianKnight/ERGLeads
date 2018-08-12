@@ -36,9 +36,9 @@ module Api
 
       def allowed_params
         params.fetch('contact', {}).permit(
-          :first_name, :last_name, :job_title, :phone, :email,
+          :first_name, :last_name, :job_title, :phone, :email, :ext,
           :comments, :connectable_id, :connectable_type,
-          location_attributes: [:city, :state, :country, :zipcode, :street]
+          location_attributes: [:city, :state, :country, :zipcode, :street, :street2]
         )
       end
 

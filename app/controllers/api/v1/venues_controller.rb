@@ -37,8 +37,8 @@ module Api
       def allowed_params
         params.fetch('venue', {}).permit(
           :name, :phone, :email, :comments, :contact_group_id, :website, :kind,
-          :other_kind, :comments,
-          location_attributes: [:city, :state, :country, :zipcode, :street]
+          :other_kind, :comments, :ext,
+          location_attributes: [:city, :state, :country, :zipcode, :street, :street2]
         )
       end
 
