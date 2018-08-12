@@ -6,9 +6,9 @@ import {
 // Action Handlers
 // ------------------------------------
 const ACTION_HANDLERS = {
-  [RECEIVE_VENUE_GROUP_ERRORS]: (state, action) => ({ ...state, ...action.data }),
-  [RECEIVE_VENUE_GROUP]: (state, action) => ({ ...state, ...action.data }),
-  [RECEIVE_VENUE_GROUPS]: (state, action) => ({ ...state, ...action.data }),
+  [RECEIVE_VENUE_GROUP_ERRORS]: (state, action) => ({ ...state, errors: action.data }),
+  [RECEIVE_VENUE_GROUP]: (state, action) => ({ ...state, ...action.data, errors: {} }),
+  [RECEIVE_VENUE_GROUPS]: (state, action) => ({ ...state, ...action.data, errors: {} }),
 };
 
 // ------------------------------------
@@ -17,7 +17,7 @@ const ACTION_HANDLERS = {
 const initialState = {
   venue_groups: [],
   venue_group: null,
-  errors: []
+  errors: {}
 };
 
 const reducer = (state = initialState, action) => {

@@ -6,9 +6,9 @@ import {
 // Action Handlers
 // ------------------------------------
 const ACTION_HANDLERS = {
-  [RECEIVE_EVENT_ERRORS]: (state, action) => ({ ...state, ...action.data }),
-  [RECEIVE_EVENT]: (state, action) => ({ ...state, ...action.data }),
-  [RECEIVE_EVENTS]: (state, action) => ({ ...state, ...action.data }),
+  [RECEIVE_EVENT_ERRORS]: (state, action) => ({ ...state, errors: action.data }),
+  [RECEIVE_EVENT]: (state, action) => ({ ...state, ...action.data, errors: {} }),
+  [RECEIVE_EVENTS]: (state, action) => ({ ...state, ...action.data, errors: {} }),
 };
 
 // ------------------------------------
@@ -17,7 +17,7 @@ const ACTION_HANDLERS = {
 const initialState = {
   events: [],
   event: null,
-  errors: []
+  errors: {}
 };
 
 const reducer = (state = initialState, action) => {

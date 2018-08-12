@@ -35,6 +35,7 @@ module Serialize
           phone: draw_phone_number(@object),
           email: @object.email,
           location: location_details(@object),
+          comments: @object.comments,
           created_at: @object.created_at,
           updated_at: @object.updated_at
         }

@@ -14,7 +14,7 @@ export const RECEIVE_EVENTS = 'RECEIVE_EVENTS';
 
 const receiveRecord = (data) => ({ type: RECEIVE_EVENT, data });
 const receiveRecords = (data) => ({ type: RECEIVE_EVENTS, data });
-const receiveErrors = (data) => ({ type: RECEIVE_EVENT_ERRORS, data: data.errors });
+const receiveErrors = (data) => ({ type: RECEIVE_EVENT_ERRORS, data });
 
 // ------------------------------------
 // Api Actions
@@ -35,13 +35,13 @@ const index = () => (dispatch, getState) => {
 }
 
 const create = (data) => (dispatch, getState) => {
-  EventApi.post(data)
+  EventApi.post({ event: data })
     .then((res) => dispatch(receiveRecord(res)))
     .catch((err) => dispatch(receiveErrors(err)))
 }
 
 const update = (id, data) => (dispatch, getState) => {
-  EventApi.patch(id, data)
+  EventApi.patch(id, { event: data })
     .then((res) => dispatch(receiveRecord(res)))
     .catch((err) => dispatch(receiveErrors(err)))
 }

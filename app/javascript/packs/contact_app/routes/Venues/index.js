@@ -3,91 +3,15 @@
 // ------------------------------------
 
 import React from 'react';
-import ReactTable from "react-table";
-import { normalizeString } from '../../utils';
+import VenueTable from '../../components/Venue/VenueTable.js'
 
 class Venues extends React.Component {
-  constructor() {
-    super();
-    // Boiler Plate function assignment, to be removed when I remember how.
-    this.handleClick = this.handleClick.bind(this);
-    this.customFiltering = this.customFiltering.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.actions.index();
-  }
-
-  customFiltering(filter, row, column) {
-    const id = filter.pivotId || filter.id
-    if (!(row[id] !== undefined)) return true;
-    let content = normalizeString(String(row[id]));
-    return content.includes(normalizeString(filter.value));
-  }
-
-  handleClick(state, rowInfo, column, instance) {
-    return {
-      onClick: (e, handleOriginal) => {
-        if (column.Header == "Name") {
-          console.log(rowInfo);
-          console.log("it can navigate to this id:", rowInfo.original.id)
-        }
-
-        if (handleOriginal) handleOriginal();
-      }
-    };
-  }
-
+  constructor() { super() }
+  componentDidMount() { this.props.actions.index() }
   render() {
-    const data = this.props.data.venues
-
-    const columns = [{
-      id: 'website',
-      Header: 'Web',
-      maxWidth: 50,
-      accessor: 'website',
-      Filter: (row) => null,
-      Cell: (row) => {
-        if (!row.value) return null
-        return <a href={row.value} target="_blank">link</a>
-      }
-    }, {
-      Header: 'Location Name',
-      accessor: 'name',
-      maxWidth: 300,
-      style: { cursor: 'pointer' }
-    }, {
-      id: 'phone',
-      Header: 'Phone Number',
-      accessor: 'phone',
-      width: 150,
-    }, {
-      id: 'location.city',
-      Header: 'City',
-      width: 150,
-      accessor: data => data.location.city
-    }, {
-      id: 'location.state',
-      Header: 'State',
-      width: 60,
-      accessor: data => data.location.state
-    }, {
-      id: 'type_of_venue',
-      Header: 'Type of Venue',
-      accessor: 'type_of_venue'
-    }]
-
-    return <ReactTable
-      className="-highlight"
-      data={data}
-      columns={columns}
-      minRows={5}
-      filterable={true}
-      pageSizeOptions={[10, 20, 50, 100, 500]}
-      defaultPageSize={20}
-      defaultFilterMethod={this.customFiltering}
-      getTdProps={this.handleClick}
-    />;
+    return (
+      <VenueTable venues={this.props.venues} linkTo={this.props.linkToForm} />
+    );
   }
 }
 
@@ -97,14 +21,17 @@ class Venues extends React.Component {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { push } from 'connected-react-router';
 import venueActions from '../../actions/venueActions';
 
 const mapStateToProps = (state, ownProps) => ({
-  data: state.venues,
+  venues: state.venues.venues,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(venueActions, dispatch)
+  actions: bindActionCreators(venueActions, dispatch),
+  linkToNew: () => dispatch(push('venues/new')),
+  linkToForm: (id) => dispatch(push(`/venues/${id}`)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Venues);

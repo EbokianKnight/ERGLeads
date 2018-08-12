@@ -6,9 +6,9 @@ import {
 // Action Handlers
 // ------------------------------------
 const ACTION_HANDLERS = {
-  [RECEIVE_CONTACT_ERRORS]: (state, action) => ({ ...state, ...action.data }),
-  [RECEIVE_CONTACT]: (state, action) => ({ ...state, ...action.data }),
-  [RECEIVE_CONTACTS]: (state, action) => ({ ...state, ...action.data }),
+  [RECEIVE_CONTACT_ERRORS]: (state, action) => ({ ...state, errors: action.data }),
+  [RECEIVE_CONTACT]: (state, action) => ({ ...state, ...action.data, errors: {} }),
+  [RECEIVE_CONTACTS]: (state, action) => ({ ...state, ...action.data, errors: {} }),
 };
 
 // ------------------------------------
@@ -17,7 +17,7 @@ const ACTION_HANDLERS = {
 const initialState = {
   contacts: [],
   contact: null,
-  errors: []
+  errors: {}
 };
 
 const reducer = (state = initialState, action) => {

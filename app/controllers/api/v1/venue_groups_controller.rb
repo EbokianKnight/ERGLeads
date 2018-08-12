@@ -1,6 +1,6 @@
 module Api
   module V1
-    class VenueGroupsController < ApplicationController
+    class VenueGroupsController < ApiController
       before_action :ensure_record, only: [:show, :update, :destroy]
 
       def show
@@ -12,7 +12,7 @@ module Api
       end
 
       def create
-        record.create!(allowed_params)
+        VenueGroup.create!(allowed_params)
         render json: { venue_group: record }, status: 202
       end
 
@@ -35,7 +35,7 @@ module Api
       end
 
       def allowed_params
-        params.require(:venue_group).permit(
+        params.fetch('venue_group', {}).permit(
           :name, :phone, :email, :comments, :website,
           location_attributes: [:city, :state, :country, :zipcode, :street]
         )

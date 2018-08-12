@@ -22,7 +22,6 @@ const Navigation = (props) => {
 }
 
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { push } from 'connected-react-router';
 
 const mapStateToProps = (state, ownProps) => ({

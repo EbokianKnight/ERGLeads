@@ -1,16 +1,8 @@
 import {
-  RECEIVE_VENUE_ERRORS, RECEIVE_VENUE, RECEIVE_VENUES
+  RECEIVE_VENUE_ERRORS, RECEIVE_VENUE, RECEIVE_VENUES, CLEAR_VENUE
 } from '../actions/venueActions.js';
 
 // ------------------------------------
-// Action Handlers
-// ------------------------------------
-const ACTION_HANDLERS = {
-  [RECEIVE_VENUE_ERRORS]: (state, action) => ({ ...state, ...action.data }),
-  [RECEIVE_VENUE]: (state, action) => ({ ...state, ...action.data }),
-  [RECEIVE_VENUES]: (state, action) => ({ ...state, ...action.data }),
-};
-
 const emptyVenue = {
   id: null,
   name: '',
@@ -30,12 +22,22 @@ const emptyVenue = {
 }
 
 // ------------------------------------
+// Action Handlers
+// ------------------------------------
+const ACTION_HANDLERS = {
+  [RECEIVE_VENUE_ERRORS]: (state, action) => ({ ...state, errors: action.data }),
+  [RECEIVE_VENUE]: (state, action) => ({ ...state, ...action.data, errors: {} }),
+  [RECEIVE_VENUES]: (state, action) => ({ ...state, ...action.data, errors: {} }),
+  [CLEAR_VENUE]: (state, action) => ({ ...state, venue: emptyVenue, errors: {} }),
+};
+
+// ------------------------------------
 // Reducer
 // ------------------------------------
 const initialState = {
   venues: [],
   venue: emptyVenue,
-  errors: []
+  errors: {}
 };
 
 const reducer = (state = initialState, action) => {

@@ -1,6 +1,6 @@
 module Api
   module V1
-    class EventsController < ApplicationController
+    class EventsController < ApiController
       before_action :ensure_record, only: [:show, :update, :destroy]
 
       def show
@@ -12,7 +12,7 @@ module Api
       end
 
       def create
-        record.create!(allowed_params)
+        Event.create!(allowed_params)
         render json: { event: record }, status: 202
       end
 
@@ -35,7 +35,7 @@ module Api
       end
 
       def allowed_params
-        params.require(:event).permit(
+        params.fetch('event', {}).permit(
           :date, :name, :description, :venue_id
         )
       end

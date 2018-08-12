@@ -7,6 +7,7 @@ import RestApi from '../middleware/restApi.js';
 export const RECEIVE_VENUE_ERRORS = 'RECEIVE_VENUE_ERRORS';
 export const RECEIVE_VENUE = 'RECEIVE_VENUE';
 export const RECEIVE_VENUES = 'RECEIVE_VENUES';
+export const CLEAR_VENUE = 'CLEAR_VENUE';
 
 // ------------------------------------
 // Actions
@@ -14,7 +15,8 @@ export const RECEIVE_VENUES = 'RECEIVE_VENUES';
 
 const receiveRecord = (data) => ({ type: RECEIVE_VENUE, data });
 const receiveRecords = (data) => ({ type: RECEIVE_VENUES, data });
-const receiveErrors = (data) => ({ type: RECEIVE_VENUE_ERRORS, data: data.errors });
+const receiveErrors = (data) => ({ type: RECEIVE_VENUE_ERRORS, data });
+const clearRecord = () => ({ type: CLEAR_VENUE })
 
 // ------------------------------------
 // Api Actions
@@ -35,13 +37,13 @@ const index = () => (dispatch, getState) => {
 }
 
 const create = (data) => (dispatch, getState) => {
-  VenueApi.post(data)
+  VenueApi.post({ venue: data })
     .then((res) => dispatch(receiveRecord(res)))
     .catch((err) => dispatch(receiveErrors(err)))
 }
 
 const update = (id, data) => (dispatch, getState) => {
-  VenueApi.patch(id, data)
+  VenueApi.patch(id, { venue: data })
     .then((res) => dispatch(receiveRecord(res)))
     .catch((err) => dispatch(receiveErrors(err)))
 }
@@ -52,7 +54,10 @@ const destroy = (id) => (dispatch, getState) => {
     .catch((err) => dispatch(receiveErrors(err)))
 }
 
+const clear = () => (dispatch) => dispatch(clearRecord());
+
 export default {
+  clear,
   show,
   index,
   create,

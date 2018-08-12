@@ -14,7 +14,7 @@ export const RECEIVE_VENUE_GROUPS = 'RECEIVE_VENUE_GROUPS';
 
 const receiveRecord = (data) => ({ type: RECEIVE_VENUE_GROUP, data });
 const receiveRecords = (data) => ({ type: RECEIVE_VENUE_GROUPS, data });
-const receiveErrors = (data) => ({ type: RECEIVE_VENUE_GROUP_ERRORS, data: data.errors });
+const receiveErrors = (data) => ({ type: RECEIVE_VENUE_GROUP_ERRORS, data });
 
 // ------------------------------------
 // Api Actions
@@ -35,13 +35,13 @@ const index = () => (dispatch, getState) => {
 }
 
 const create = (data) => (dispatch, getState) => {
-  VenueGroupApi.post(data)
+  VenueGroupApi.post({ venue_group: data })
     .then((res) => dispatch(receiveRecord(res)))
     .catch((err) => dispatch(receiveErrors(err)))
 }
 
 const update = (id, data) => (dispatch, getState) => {
-  VenueGroupApi.patch(id, data)
+  VenueGroupApi.patch(id, { venue_group: data })
     .then((res) => dispatch(receiveRecord(res)))
     .catch((err) => dispatch(receiveErrors(err)))
 }

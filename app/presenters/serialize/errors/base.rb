@@ -3,7 +3,7 @@ module Serialize
     class Base < Presenter
       def as_json(*)
         {
-          code: @object.code,
+          code: 'base_error',
           status: @object.status,
           errors: package_errors
         }

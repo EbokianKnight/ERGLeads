@@ -12,3 +12,6 @@ api:
       taken: must be unique
       invalid_phone_number: must be valid
       invalid_email: must be valid
+
+    validations:
+      kind_inclusion: 'A kind must be selected'

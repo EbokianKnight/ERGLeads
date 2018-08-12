@@ -30,6 +30,7 @@ module Serialize
           location: location_details(@object),
           venues: venues,
           contacts: contacts,
+          comments: @object.comments,
           created_at: @object.created_at,
           updated_at: @object.updated_at
         }

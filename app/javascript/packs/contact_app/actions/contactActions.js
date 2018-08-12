@@ -14,7 +14,7 @@ export const RECEIVE_CONTACTS = 'RECEIVE_CONTACTS';
 
 const receiveRecord = (data) => ({ type: RECEIVE_CONTACT, data });
 const receiveRecords = (data) => ({ type: RECEIVE_CONTACTS, data });
-const receiveErrors = (data) => ({ type: RECEIVE_CONTACT_ERRORS, data: data.errors });
+const receiveErrors = (data) => ({ type: RECEIVE_CONTACT_ERRORS, data });
 
 // ------------------------------------
 // Api Actions
@@ -35,13 +35,13 @@ const index = () => (dispatch, getState) => {
 }
 
 const create = (data) => (dispatch, getState) => {
-  ContactApi.post(data)
+  ContactApi.post({ contact: data })
     .then((res) => dispatch(receiveRecord(res)))
     .catch((err) => dispatch(receiveErrors(err)))
 }
 
 const update = (id, data) => (dispatch, getState) => {
-  ContactApi.patch(id, data)
+  ContactApi.patch(id, { contact: data })
     .then((res) => dispatch(receiveRecord(res)))
     .catch((err) => dispatch(receiveErrors(err)))
 }

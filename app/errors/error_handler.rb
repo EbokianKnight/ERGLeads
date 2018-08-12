@@ -1,6 +1,6 @@
 module ErrorHandler
   def self.included(klass)
-    klass.eval do
+    klass.class_eval do
 
       rescue_from Exception, with: :unhandled_exception
       rescue_from StandardError, with: :unhandled_error
@@ -29,8 +29,7 @@ module ErrorHandler
       end
 
       def not_found(e)
-        new_error = ApiError::NotFound.new(message: e.message)
-        render_error(new_error)
+        render_error(ApiError::NotFound.new)
       end
 
       def render_error(e)
