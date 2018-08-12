@@ -1,5 +1,6 @@
 import {
-  RECEIVE_VENUE_ERRORS, RECEIVE_VENUE, RECEIVE_VENUES, CLEAR_VENUE
+  RECEIVE_VENUE_ERRORS, RECEIVE_VENUE, RECEIVE_VENUES, CLEAR_VENUE,
+  SUBMIT_VENUE, SUBMIT_VENUE_OK, SUBMIT_VENUE_FAIL
 } from '../actions/venueActions.js';
 
 // ------------------------------------
@@ -29,6 +30,9 @@ const ACTION_HANDLERS = {
   [RECEIVE_VENUE]: (state, action) => ({ ...state, ...action.data, errors: {} }),
   [RECEIVE_VENUES]: (state, action) => ({ ...state, ...action.data, errors: {} }),
   [CLEAR_VENUE]: (state, action) => ({ ...state, venue: emptyVenue, errors: {} }),
+  [SUBMIT_VENUE]: (state, action) => ({
+    ...state, venue: { ...state.venue, submit: action.submit }
+  }),
 };
 
 // ------------------------------------

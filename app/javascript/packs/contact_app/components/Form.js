@@ -6,10 +6,12 @@ const Errors = ({errors}) => {
   return errors.map((err, i) => <div key={i} className="form-errors">{err}</div>)
 }
 
-export default ({ formID, fields, onSubmit }) =>
+export default ({ formID, fields, onSubmit, disable }) =>
   <Form id={formID} onSubmit={onSubmit}>
     { renderFormFields(fields) }
-    <button className="btn btn-submit" type="submit">Submit</button>
+    <button className="btn btn-submit" type="submit" disabled={disable}>
+      Submit
+    </button>
   </Form>;
 
 

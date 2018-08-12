@@ -106,6 +106,7 @@ const VenueForm = ({ venue, errors, action }) => {
     <Form
       formID={`venueform${venue.id}`}
       fields={fields}
+      disable={venue.submit == 'in progress' || null}
       onSubmit={onSubmitForm}
     />
   )
