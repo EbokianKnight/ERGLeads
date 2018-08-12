@@ -9,6 +9,7 @@ module Serialize
           state: @object.state,
           city: @object.city,
           street: @object.street,
+          street2: @object.street2,
           zipcode: @object.zipcode
         }
       end

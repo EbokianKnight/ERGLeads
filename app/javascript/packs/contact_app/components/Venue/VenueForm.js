@@ -23,6 +23,13 @@ const VenueForm = ({ venue, errors, action }) => {
       errors: pluckValidations(errors, 'name'),
       initialValue: venue.name,
     },{
+      id: 'venue-form-field__ext',
+      label: 'Extension',
+      type: 'text',
+      field: 'ext',
+      errors: pluckValidations(errors, 'ext'),
+      initialValue: venue.ext,
+    },{
       id: 'venue-form-field__phone',
       label: 'General Phone Number',
       type: 'text',
@@ -71,6 +78,13 @@ const VenueForm = ({ venue, errors, action }) => {
       field: 'location.street',
       errors: pluckValidations(errors, 'location.street'),
       initialValue: venue.location.street,
+    },{
+      id: 'venue-form-field__address2',
+      label: 'Address2',
+      type: 'text',
+      field: 'location.street2',
+      errors: pluckValidations(errors, 'location.street2'),
+      initialValue: venue.location.street2,
     },{
       id: 'venue-form-field__zipcode',
       label: 'Zipcode',

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_21_180648) do
+ActiveRecord::Schema.define(version: 2018_08_12_234106) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 2018_07_21_180648) do
     t.bigint "connectable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "ext"
     t.index ["connectable_type", "connectable_id"], name: "index_contacts_on_connectable_type_and_connectable_id"
   end
 
@@ -49,6 +50,7 @@ ActiveRecord::Schema.define(version: 2018_07_21_180648) do
     t.bigint "addressable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "street2"
     t.index ["addressable_type", "addressable_id"], name: "index_locations_on_addressable_type_and_addressable_id"
   end
 
@@ -78,6 +80,7 @@ ActiveRecord::Schema.define(version: 2018_07_21_180648) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "website"
+    t.string "ext"
   end
 
   create_table "venues", force: :cascade do |t|
@@ -91,6 +94,7 @@ ActiveRecord::Schema.define(version: 2018_07_21_180648) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "website"
+    t.string "ext"
     t.index ["venue_group_id"], name: "index_venues_on_venue_group_id"
   end
 
