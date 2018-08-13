@@ -16,8 +16,8 @@ class ApplicationRecord < ActiveRecord::Base
 
   def as_json(*args)
     "Serialize::Models::#{self.class}".constantize.new(self).as_json(*args)
-  rescue NameError
-    Rails.logger.info("Unknown Serializer: Serialize::Models::#{self.class}")
+  rescue NameError => e
+    Rails.logger.info(e.message)
     super(*args)
   end
 end

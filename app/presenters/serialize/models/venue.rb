@@ -41,8 +41,7 @@ module Serialize
           events: events,
           created_at: @object.created_at,
           updated_at: @object.updated_at,
-          comments: @object.comments,
-          valid_venues: ::Venue::KINDS
+          comments: @object.comments
         }
       end
 
