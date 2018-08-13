@@ -19,26 +19,32 @@ const VenueTable = ({ venues, linkTo }) => {
     };
   }
 
-  const columns = [{
-    id: 'website',
-    Header: 'Web',
-    maxWidth: 50,
-    accessor: 'website',
-    Filter: (row) => null,
-    Cell: (row) => {
-      if (!row.value) return null
-      return <a href={row.value} target="_blank">link</a>
-    }
+  const columns = [
+    {
+      id: 'website',
+      Header: 'Web',
+      maxWidth: 50,
+      accessor: 'website',
+      Filter: (row) => null,
+      Cell: (row) => {
+        if (!row.value) return null
+        return <a href={row.value} target="_blank">link</a>
+      }
     }, {
       Header: 'Venue Name',
       accessor: 'name',
-      maxWidth: 300,
       style: { cursor: 'pointer' }
+    }, {
+      id: 'ext',
+      Header: 'Ext.',
+      Filter: (row) => null,
+      accessor: 'ext',
+      width: 50,
     }, {
       id: 'phone',
       Header: 'Phone Number',
       accessor: 'phone',
-      width: 150,
+      width: 130,
     }, {
       id: 'location.city',
       Header: 'City',
@@ -52,7 +58,8 @@ const VenueTable = ({ venues, linkTo }) => {
     }, {
       id: 'type_of_venue',
       Header: 'Type of Venue',
-      accessor: 'type_of_venue'
+      accessor: 'type_of_venue',
+      maxWidth: 150,
     }
   ];
   return (
