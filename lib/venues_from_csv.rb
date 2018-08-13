@@ -5,7 +5,7 @@ class VenuesFromCsv
       VenueGroup.destroy_all
       Contact.destroy_all
       Location.destroy_all
-      Event.destroy_all 
+      Event.destroy_all
     end
     @data = read_records_csv
   end
@@ -31,31 +31,70 @@ class VenuesFromCsv
     puts "Finished. Added #{@num_records} records."
   end
 
+  def valid_kind(kind)
+    %w[
+      amphitheater
+      casino
+      club-bar
+      fair-festival
+      summer concert series
+      theatre-pac
+      other
+    ].include?(kind)
+  end
+
   def create_venue_contact(record)
     Venue.create({
-      name: record[0],
+      kind: valid_kind(record[0]) ? record[0] : 'other'
+      other_kind: !valid_kind(record[0]) ? nil : record[0],
+      name: record[1],
       location: Location.create(
-        street: record[1],
-        city: record[2],
-        state: record[3],
-        zipcode: record[4]
+        street: record[2],
+        street2: record[3],
+        city: record[4],
+        state: record[5],
+        zipcode: record[6]
       ),
-      phone: record[5],
-      website: record[6],
-      comments: record[7],
-      kind: 'other',
-      other_kind: 'N/A',
-      contacts: [
-        Contact.create({
-          email: record[8],
-          first_name: record[9],
-          last_name: record[10],
-          job_title: record[11]
-        })
-      ]
+      phone: record[7],
+      ext: record[8],
+      website: record[9],
+      email: record[10],
+      comments: record[12],
+      contacts: build_contacts(record)
     })
     @num_records += 1
   rescue
     puts "Could not add row for #{record[0]}."
   end
+end
+
+def extract_contact(record, idx)
+  return nil unless record[idx] || record[idx + 1]
+  Contact.create({
+    first_name: record[idx + 0],
+    last_name: record[idx + 1],
+    job_title: record[idx + 2],
+    phone: record[idx + 3],
+    ext: record[idx + 4],
+    email: record[idx + 5],
+    comments: record[idx + 11],
+    location: Location.create(
+      street: record[idx + 6],
+      street2: record[idx + 7],
+      city: record[idx + 8],
+      state: record[idx + 9],
+      zipcode: record[idx + 10]
+    )
+  )}
+rescue
+  puts "Could not add contact##{idx/10} for #{record[0]}."
+  nil
+end
+
+def build_contact(record)
+  [
+    extract_contact(record, 13),
+    extract_contact(record, 25),
+    extract_contact(record, 37)
+  ].conpact
 end
