@@ -95,15 +95,25 @@ const VenueForm = ({ venue, errors, action }) => {
     },{
       id: 'venue-form-field__kind',
       label: 'Kind of Venue',
-      type: 'text',
+      type: 'select',
       field: 'kind',
+      opts: [
+        { value: 'amphitheater', label: 'Amphitheater' },
+        { value: 'casino', label: 'Casino' },
+        { value: 'club-bar', label: 'Club / Bar' },
+        { value: 'fair-festival', label: 'Fair / Festival' },
+        { value: 'summer concert series', label: 'Summer Concert Series' },
+        { value: 'theatre-pac', label: 'Theatre / Pac' },
+        { value: 'other', label: 'Other' }
+      ],
       errors: pluckValidations(errors, 'kind'),
       initialValue: venue.kind,
     },{
       id: 'venue-form-field__other_kind',
-      label: 'Other',
+      label: 'Other Kind of Venue',
       type: 'text',
       field: 'other_kind',
+      hidden: venue.kind != 'other',
       errors: pluckValidations(errors, 'other_kind'),
       initialValue: venue.other_kind,
     },{

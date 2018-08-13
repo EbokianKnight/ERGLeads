@@ -28,9 +28,8 @@ export default ({ formID, fields, onSubmit, disable }) =>
 const renderFormFields = (fields) => {
   if (!fields || fields.length == 0) return null;
 
-  return fields.map((field, idx) => {
+  return fields.filter(field => !field.hidden).map((field, idx) => {
     const hasErrors = field.errors && field.errors.length != 0 ? 'invalid' : '';
-
     return (
       <div key={idx} className={`field-control ${hasErrors}`} id={`${field.id}-control`}>
         <label htmlFor={field.id}>{field.label}</label>
@@ -52,7 +51,7 @@ const GetField = ({ field }) => {
         {
           field.opts.map((opt, idx2) => {
             return (
-              <Option value={opt.value} id={opt.id}>{opt.label}</Option>
+              <Option value={opt.value} key={idx2}>{opt.label}</Option>
             )
           })
         }
