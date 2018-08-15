@@ -31,7 +31,7 @@ module Api
       attr_reader :record
 
       def present_records
-        Serialize::Models::Contact::Index.new(Contact.order(:last_name))
+        Serialize::Models::Contact::Index.new(Contact.order(:last_name).includes(:location))
       end
 
       def allowed_params
