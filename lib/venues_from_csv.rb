@@ -48,24 +48,18 @@ class VenuesFromCsv
       kind: (valid_kind(record[0]) ? record[0] : 'other'),
       other_kind: (!valid_kind(record[0]) ? nil : record[0]),
       name: record[1],
-      location: Location.new(
-        street: record[2],
-        street2: record[3],
-        city: record[4],
-        state: record[5],
-        zipcode: record[6]
-      ),
+      location: extract_location(record, 2),
       phone: extract_phone(record[7]),
       ext: record[8],
       website: record[9],
       email: record[10],
-      comments: record[12],
+      comments: record[11],
       contacts: build_contacts(record)
     })
     @num_records += 1
   rescue ActiveRecord::RecordInvalid => invalid
     puts "Could not add #{record[1]}. b/c: #{invalid.record.errors.details}"
-    puts "     phone: #{record[7]}, extracted: #{extract_phone(record[7])}"
+    puts "     phone: #{record[7]}, email: #{record[10]}"
     nil
   rescue => e
     puts "Could not add #{record[1]}. b/c #{e.class}: #{e.message}"
@@ -73,14 +67,14 @@ class VenuesFromCsv
   end
 end
 
-def extract_location(record)
-  return nil if record[2..6].compact.empty?
+def extract_location(record, idx)
+  return nil if record[idx..idx+4]&.compact&.empty?
   Location.new(
-    street: record[2],
-    street2: record[3],
-    city: record[4],
-    state: record[5],
-    zipcode: record[6]
+    street: record[idx],
+    street2: record[idx+1],
+    city: record[idx+2],
+    state: record[idx+3],
+    zipcode: record[idx+4]
   )
 end
 
@@ -99,17 +93,11 @@ def extract_contact(record, idx)
     ext: record[idx + 4],
     email: record[idx + 5],
     comments: record[idx + 11],
-    location: Location.new(
-      street: record[idx + 6],
-      street2: record[idx + 7],
-      city: record[idx + 8],
-      state: record[idx + 9],
-      zipcode: record[idx + 10]
-    )
+    location: extract_location(record, idx+6)
   })
 rescue ActiveRecord::RecordInvalid => invalid
   puts "Could not add contact##{idx/10} for #{record[1]}. b/c: #{invalid.record.errors.details}"
-  puts "     phone: #{record[idx + 3]}, extracted: #{extract_phone(record[idx + 3])}"
+  puts "     phone: #{record[idx + 3]}, email: #{record[idx + 5]}"
   nil
 rescue => e
   puts "Could not add contact##{idx/10} for #{record[1]}. b/c #{e.class}: #{e.message}"
@@ -118,8 +106,8 @@ end
 
 def build_contacts(record)
   [
-    extract_contact(record, 13),
-    extract_contact(record, 25),
-    extract_contact(record, 37)
+    extract_contact(record, 12),
+    extract_contact(record, 24),
+    extract_contact(record, 36)
   ].compact
 end
