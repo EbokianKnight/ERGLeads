@@ -1,3 +1,5 @@
+require 'csv'
+
 class VenuesFromCsv
   def initialize(replace_records: false)
     if replace_records
@@ -11,8 +13,7 @@ class VenuesFromCsv
   end
 
   def read_records_csv
-    file = File.read(Rails.root.join('tmp/erg_venues.csv'))
-    @data = file.split("\r\n").drop(1).map { |line| line.split(',') }
+    @data = CSV.read(Rails.root.join('tmp/erg_venues.csv')).drop(1)
   rescue
     raise 'Missing required file: /tmp/erg_venues.csv'
   end
@@ -86,18 +87,17 @@ end
 def extract_contact(record, idx)
   return nil unless record[idx].present? || record[idx + 1].present?
   Contact.create!({
-    first_name: record[idx + 0],
-    last_name: record[idx + 1],
-    job_title: record[idx + 2],
-    phone: extract_phone(record[idx + 3]),
-    ext: record[idx + 4],
-    email: record[idx + 5],
-    comments: record[idx + 11],
+    first_name: record[idx+0],
+    last_name: record[idx+1],
+    job_title: record[idx+2],
+    phone: extract_phone(record[idx+3]),
+    ext: record[idx+4],
+    email: record[idx+5],
+    comments: record[idx+11],
     location: extract_location(record, idx+6)
   })
 rescue ActiveRecord::RecordInvalid => invalid
   puts "Could not add contact##{idx/10} for #{record[1]}. b/c: #{invalid.record.errors.details}"
-  puts "     phone: #{record[idx + 3]}, email: #{record[idx + 5]}"
   nil
 rescue => e
   puts "Could not add contact##{idx/10} for #{record[1]}. b/c #{e.class}: #{e.message}"

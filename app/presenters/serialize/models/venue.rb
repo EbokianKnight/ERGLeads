@@ -36,6 +36,7 @@ module Serialize
           ext: @object.ext,
           phone: draw_phone_number(@object.phone),
           email: @object.email,
+          website: @object.website,
           location: location_details(@object),
           contacts: contacts,
           events: events,

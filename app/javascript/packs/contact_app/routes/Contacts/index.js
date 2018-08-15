@@ -104,16 +104,16 @@ class Contacts extends React.Component {
       sortMethod: (a, b) =>
         a.trim().split(' ').pop() > b.trim().split(' ').pop()
       }, {
+        id: 'phone',
+        Header: 'Phone Number',
+        accessor: 'phone',
+        width: 120,
+      }, {
         id: 'ext',
         Header: 'Ext.',
         Filter: (row) => null,
         accessor: 'ext',
         width: 50,
-      }, {
-        id: 'phone',
-        Header: 'Phone Number',
-        accessor: 'phone',
-        width: 120,
       }, {
         id: 'email',
         Header: 'Email Address',
