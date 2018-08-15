@@ -12,7 +12,7 @@ class VenuesFromCsv
 
   def read_records_csv
     file = File.read(Rails.root.join('tmp/erg_venues.csv'))
-    @data = file.split("\r\n").drop(2).map { |line| line.split(',') }
+    @data = file.split("\r\n").drop(1).map { |line| line.split(',') }
   rescue
     raise 'Missing required file: /tmp/erg_venues.csv'
   end
@@ -44,18 +44,18 @@ class VenuesFromCsv
   end
 
   def create_venue_contact(record)
-    Venue.create({
-      kind: valid_kind(record[0]) ? record[0] : 'other'
-      other_kind: !valid_kind(record[0]) ? nil : record[0],
+    Venue.create!({
+      kind: (valid_kind(record[0]) ? record[0] : 'other'),
+      other_kind: (!valid_kind(record[0]) ? nil : record[0]),
       name: record[1],
-      location: Location.create(
+      location: Location.new(
         street: record[2],
         street2: record[3],
         city: record[4],
         state: record[5],
         zipcode: record[6]
       ),
-      phone: record[7],
+      phone: extract_phone(record[7]),
       ext: record[8],
       website: record[9],
       email: record[10],
@@ -63,38 +63,63 @@ class VenuesFromCsv
       contacts: build_contacts(record)
     })
     @num_records += 1
-  rescue
-    puts "Could not add row for #{record[0]}."
+  rescue ActiveRecord::RecordInvalid => invalid
+    puts "Could not add #{record[1]}. b/c: #{invalid.record.errors.details}"
+    puts "     phone: #{record[7]}, extracted: #{extract_phone(record[7])}"
+    nil
+  rescue => e
+    puts "Could not add #{record[1]}. b/c #{e.class}: #{e.message}"
+    nil
   end
 end
 
+def extract_location(record)
+  return nil if record[2..6].compact.empty?
+  Location.new(
+    street: record[2],
+    street2: record[3],
+    city: record[4],
+    state: record[5],
+    zipcode: record[6]
+  )
+end
+
+def extract_phone(phone)
+  return nil unless phone.present?
+  phone.gsub(/[[^\d]+]/, '')
+end
+
 def extract_contact(record, idx)
-  return nil unless record[idx] || record[idx + 1]
-  Contact.create({
+  return nil unless record[idx].present? || record[idx + 1].present?
+  Contact.create!({
     first_name: record[idx + 0],
     last_name: record[idx + 1],
     job_title: record[idx + 2],
-    phone: record[idx + 3],
+    phone: extract_phone(record[idx + 3]),
     ext: record[idx + 4],
     email: record[idx + 5],
     comments: record[idx + 11],
-    location: Location.create(
+    location: Location.new(
       street: record[idx + 6],
       street2: record[idx + 7],
       city: record[idx + 8],
       state: record[idx + 9],
       zipcode: record[idx + 10]
     )
-  )}
-rescue
-  puts "Could not add contact##{idx/10} for #{record[0]}."
+  })
+rescue ActiveRecord::RecordInvalid => invalid
+  puts "Could not add contact##{idx/10} for #{record[1]}. b/c: #{invalid.record.errors.details}"
+  puts "     phone: #{record[idx + 3]}, extracted: #{extract_phone(record[idx + 3])}"
+  nil
+rescue => e
+  puts "Could not add contact##{idx/10} for #{record[1]}. b/c #{e.class}: #{e.message}"
   nil
 end
 
-def build_contact(record)
+def build_contacts(record)
   [
     extract_contact(record, 13),
     extract_contact(record, 25),
     extract_contact(record, 37)
-  ].conpact
+  ].compact
 end

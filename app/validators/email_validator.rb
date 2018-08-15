@@ -8,7 +8,7 @@ class EmailValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     return if @allow_nil && value.nil?
     return if @allow_blank && value.blank?
-    return if value&.match?(URI::MailTo::EMAIL_REGEXP)
+    return if value&.match?(/.+@.+\..+/)
     record.errors.add(attribute.to_sym, :invalid_email)
   end
 end

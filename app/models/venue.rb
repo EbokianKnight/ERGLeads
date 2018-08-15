@@ -1,7 +1,7 @@
 class Venue < ApplicationRecord
   validates :name, presence: true
   validates :phone, phone_number: true, allow_blank: true
-  validates :email, email: true, allow_blank: true
+  # validates :email, email: true, allow_blank: true
   before_validation :other_kinds_default
 
   belongs_to :venue_group, optional: true

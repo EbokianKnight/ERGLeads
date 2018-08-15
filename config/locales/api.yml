@@ -15,3 +15,5 @@ api:
 
     validations:
       kind_inclusion: 'A kind must be selected'
+      phone_invalid: 'Phone numbers must be valid'
+      email_invalid: 'Emails must be valid'
