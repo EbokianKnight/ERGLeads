@@ -13,5 +13,5 @@ class Contact < ApplicationRecord
     errors.add(:last_name, :blank)
   end
 
-  accepts_nested_attributes_for :location
+  accepts_nested_attributes_for :location, update_only: true
 end

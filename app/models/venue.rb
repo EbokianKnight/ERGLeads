@@ -9,7 +9,7 @@ class Venue < ApplicationRecord
   has_one :location, as: :addressable
   has_many :events
 
-  accepts_nested_attributes_for :location
+  accepts_nested_attributes_for :location, update_only: true
   accepts_nested_attributes_for :contacts
   accepts_nested_attributes_for :events
 
