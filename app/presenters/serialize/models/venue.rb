@@ -9,16 +9,16 @@ module Serialize
         def as_json(*)
           @array.map do |object|
             {
-              venue_group_id: object.venue_group_id,
-              venue_group_name: object.organization_name,
               id: object.id,
               type_of_venue: object.type_of_venue,
               name: object.name,
               ext: object.ext,
               phone: draw_phone_number(object.phone),
-              email: object.email,
               website: object.website,
-              location: location_details(object)
+              location: {
+                state: object.location&.state,
+                city: object.location&.city,
+              }
             }
           end
         end
