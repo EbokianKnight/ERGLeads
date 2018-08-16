@@ -12,7 +12,7 @@ module Api
             send_data(
               package_csv,
               type: 'text/csv; charset=utc-8; header=present',
-              disposition: "attachment; filename='contact_list_#{DateTime.now.to_s}'"
+              disposition: "attachment; filename='contact_list_#{DateTime.now.to_s}.csv'"
             )
           end
         end
