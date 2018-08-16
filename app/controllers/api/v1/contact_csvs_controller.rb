@@ -21,7 +21,7 @@ module Api
       private
 
       def csv_header
-        %w[first_name last_name mailing_address job_title email_address country state city venue_name]
+        %w[first_name last_name venue_name job_title mailing_address email_address]
       end
 
       def rows
@@ -29,13 +29,10 @@ module Api
           [
             contact.first_name,
             contact.last_name,
+            contact.connectable&.name,
             contact.job_title,
             contact.location&.address || contact.connectable&.location&.address,
-            contact.email || contact&.connectable&.email,
-            contact.location&.country || contact.connectable&.location&.country,
-            contact.location&.state || contact.connectable&.location&.state,
-            contact.location&.city || contact.connectable&.location&.city,
-            contact.connectable&.name
+            contact.email || contact&.connectable&.email
           ]
         end
       end

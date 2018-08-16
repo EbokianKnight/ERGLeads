@@ -3,7 +3,8 @@ class Location < ApplicationRecord
   validate :validate_full_address
 
   def address
-    [city, state, street, street2, zipcode].compact.join(', ')
+    "#{[street, street2].compact.join}, #{city}, #{state}, #{country} #{zipcode}"
+    [street, street2, city, state, zipcode, country].compact.join(', ')
   end
 
   def validate_full_address
