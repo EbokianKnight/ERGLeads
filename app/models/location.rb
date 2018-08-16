@@ -4,7 +4,6 @@ class Location < ApplicationRecord
 
   def address
     "#{[street, street2].compact.join}, #{city}, #{state}, #{country} #{zipcode}"
-    [street, street2, city, state, zipcode, country].compact.join(', ')
   end
 
   def validate_full_address
