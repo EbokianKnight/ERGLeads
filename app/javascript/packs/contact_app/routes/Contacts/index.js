@@ -117,7 +117,11 @@ class Contacts extends React.Component {
       }, {
         id: 'email',
         Header: 'Email Address',
-        accessor: 'email'
+        accessor: 'email',
+        Cell: (row) => {
+          if (!row.value) return null
+          return <a href={`mailto:${row.value}`}>{row.value}</a>
+        }
       }, {
         id: 'location.city',
         Header: 'City',
