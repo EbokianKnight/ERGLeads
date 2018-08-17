@@ -1,46 +1,47 @@
 import React from 'react';
+import { Menu, Icon } from 'semantic-ui-react';
 
-const drawPaths = ({ path, links, linkTo }) => {
-  return Object.keys(links).map((link, i) => {
-    return (
-      <div key={i}
-        onClick={linkTo(links[link].path)}
-        className={ links[link].active ? "active-link" : ''}
-      >
-        { links[link].title }
-      </div>
-    );
-  })
-}
-
-const Navigation = (props) => {
+const MenuNav = ({ links, linkTo }) => {
+  const onClick = (path) => linkTo(path);
   return (
-    <div className="table-navigation">
-      { drawPaths(props) }
-    </div>
+    <Menu fluid widths={links.length}>
+      {
+        links.map((link, key) =>
+          <Menu.Item key={key} active={link.active} onClick={() => onClick(link.path)}>
+            { link.icon ? <Icon name={link.icon} size='large' /> : null }
+            { link.label }
+          </Menu.Item>
+        )
+      }
+    </Menu>
   );
 }
 
-import { connect } from 'react-redux';
-import { push } from 'connected-react-router';
-
+// icon: 'address book outline'
+// icon: 'users'
 const mapStateToProps = (state, ownProps) => ({
-  links: {
-    venues: {
+  links: [
+    {
       path: '/venues',
       active: '/venues' == state.router.location.pathname,
-      title: 'Venues'
-    },
-    contacts: {
+      label: 'Venues',
+    },{
       path: '/',
       active: '/' == state.router.location.pathname,
-      title: 'Contacts'
+      label: 'Contacts',
+    },{
+      path: '/venues/new',
+      active: '/venues/new' == state.router.location.pathname,
+      label: 'New Venue',
+      icon: 'plus',
     }
-  },
+  ]
 })
 
+import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
 const mapDispatchToProps = (dispatch) => ({
-  linkTo: (path) => () => dispatch(push(path)),
+  linkTo: (path) => dispatch(push(path)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navigation);
+export default connect(mapStateToProps, mapDispatchToProps)(MenuNav);

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactTable from "react-table";
 import { normalizeString } from '../../utils';
+import { Icon } from 'semantic-ui-react';
 
 const VenueTable = ({ venues, linkTo }) => {
   const customFiltering = (filter, row, column) => {
@@ -23,12 +24,16 @@ const VenueTable = ({ venues, linkTo }) => {
     {
       id: 'website',
       Header: 'Web',
-      maxWidth: 50,
+      maxWidth: 40,
       accessor: 'website',
       Filter: (row) => null,
       Cell: (row) => {
         if (!row.value) return null
-        return <a href={row.value} target="_blank">link</a>
+        return (
+          <a href={row.value} target="_blank">
+            <Icon name='external share' size='large' />
+          </a>
+        );
       }
     }, {
       Header: 'Venue Name',
