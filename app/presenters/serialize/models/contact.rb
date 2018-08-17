@@ -8,18 +8,7 @@ module Serialize
 
         def as_json(*)
           @array.map do |object|
-            {
-              connectable_id: object.connectable_id,
-              connectable_type: object.connectable_type,
-              id: object.id,
-              full_name: "#{object.first_name} #{object.last_name}".squish,
-              first_name: object.first_name,
-              last_name: object.last_name,
-              ext: object.ext,
-              phone: draw_phone_number(object.phone),
-              email: object.email,
-              location: location_details(object)
-            }
+            Contact.new(object).as_json
           end
         end
       end
@@ -30,16 +19,18 @@ module Serialize
           connectable_id: @object.connectable_id,
           connectable_type: @object.connectable_type,
           id: @object.id,
+          full_name: "#{@object.first_name} #{@object.last_name}".squish,
           first_name: @object.first_name,
           last_name: @object.last_name,
           job_title: @object.job_title,
           ext: @object.ext,
-          phone: draw_phone_number(@object),
+          phone: draw_phone_number(@object.phone),
           email: @object.email,
           location: location_details(@object),
           comments: @object.comments,
           created_at: @object.created_at,
-          updated_at: @object.updated_at
+          updated_at: @object.updated_at,
+          venue_name: @object.connectable&.name
         }
       end
 
