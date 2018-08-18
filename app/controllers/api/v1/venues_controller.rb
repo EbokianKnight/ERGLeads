@@ -31,7 +31,7 @@ module Api
       attr_reader :record
 
       def present_records
-        Serialize::Models::Venue::Index.new(Venue.order(:name).includes(:location))
+        Serialize::Models::Venue::Index.new(Venue.order(:name).includes(:location, contacts: [:location]))
       end
 
       def allowed_params
