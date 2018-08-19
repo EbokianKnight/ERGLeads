@@ -42,7 +42,7 @@ class VenueNav extends React.Component {
     const currentIndex = this.getIndexFrom(id);
 
     return (
-      <div className='venue-navigation'>
+      <div className='venue-navigation' style={{ width: '98%' }}>
         {
           currentIndex == 0 ?
             <Button content='Previous' icon='left arrow' labelPosition='left' disabled/>

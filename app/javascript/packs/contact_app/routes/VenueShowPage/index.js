@@ -69,6 +69,11 @@ class VenueShowPage extends React.Component {
               </Modal.Actions>
             </Modal>
           </div>
+          <div>
+            {
+              record.contacts && record.contacts.map((c, i) => <div key={i}>{c.full_name}</div>)
+            }
+          </div>
         </div>
       );
     }
