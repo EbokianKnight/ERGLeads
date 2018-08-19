@@ -31,7 +31,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(venueActions, dispatch),
   linkToNew: () => dispatch(push('venues/new')),
-  linkToForm: (id) => dispatch(push(`/venues/${id}`)),
+  linkToForm: (id) => dispatch(push(`/venues/edit/${id}`)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Venues);
