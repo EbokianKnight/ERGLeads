@@ -1,7 +1,7 @@
 import React from 'react';
 import Loader from '../../components/Loader.js';
 import VenueForm from '../../components/Venue/VenueForm.js';
-// import VenueFormNew from '../../components/Venue/VenueFormNew.js';
+import VenueFormNew from '../../components/Venue/VenueFormNew.js';
 import VenueNav from '../../components/Venue/VenueNav.js';
 import { Modal, Button } from 'semantic-ui-react';
 
@@ -41,7 +41,15 @@ class VenueShowPage extends React.Component {
         <div>{problems.message}</div>
       </div>;
     } else if (!this.props.loadingID) {
-      return <Loader />
+      // return <Loader />
+      return (
+        <div className="venue-form-page">
+          <div>
+            <VenueNav list={venues} actions={actions} id={loadingID} navigateTo={navigateTo}/>
+            <VenueFormNew loading={true} />
+          </div>
+        </div>
+      );
     } else {
       return (
         <div className="venue-form-page">

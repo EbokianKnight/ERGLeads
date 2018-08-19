@@ -18,7 +18,7 @@ const kindOfCountries =  [
   { value: 'Mexico', text: 'Mexico' },
 ];
 
-export default ({ errors, venue, disable, actions }) => {
+export default ({ errors, venue, disable, actions, loading = null }) => {
   const onSubmitForm = (params) => {
     if (!venue.id) actions.create(params);
     else actions.update(venue.id, params);
@@ -40,10 +40,17 @@ export default ({ errors, venue, disable, actions }) => {
   const hasError = (matcher) => {
     return findErrors(matcher).length > 0 ? ' error' : '';
   }
+  const isLoading = () => {
+    return loading ? ' loading' : '';
+  }
 
   return (
-    <Form className='ui small form' onSubmit={onSubmitForm}>
-      <Header textAlign='center' as='h2'>New Venue</Header>
+    <Form className={`ui small form${isLoading()}`} onSubmit={onSubmitForm}>
+      {
+        loading ?
+          <Header textAlign='center' as='h2'>Loading... Venue</Header>
+        : <Header textAlign='center' as='h2'>New Venue</Header>
+      }
 
       <div className={`field field-container${hasError('name')}`}>
         <label className='forml' htmlFor='name-new'>Name</label>
