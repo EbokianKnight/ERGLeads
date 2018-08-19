@@ -1,5 +1,4 @@
 import React from 'react';
-import Loader from '../../components/Loader.js';
 import VenueForm from '../../components/Venue/VenueForm.js';
 import VenueFormNew from '../../components/Venue/VenueFormNew.js';
 import VenueNav from '../../components/Venue/VenueNav.js';
@@ -41,7 +40,6 @@ class VenueShowPage extends React.Component {
         <div>{problems.message}</div>
       </div>;
     } else if (!this.props.loadingID) {
-      // return <Loader />
       return (
         <div className="venue-form-page">
           <div>
