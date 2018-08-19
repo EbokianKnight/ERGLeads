@@ -12,32 +12,25 @@ class Contacts extends React.Component {
   constructor() {
     super();
     this.state = { selection: [], selectAll: false };
-
-    // Boiler Plate function assignment, to be removed when I remember how.
-    this.handleClick = this.handleClick.bind(this);
-    this.customFiltering = this.customFiltering.bind(this);
-    this.toggleSelection = this.toggleSelection.bind(this);
-    this.toggleAll = this.toggleAll.bind(this);
-    this.isSelected = this.isSelected.bind(this);
   }
 
   componentDidMount() {
     this.props.actions.index();
   }
 
-  customFiltering(filter, row, column) {
+  customFiltering = (filter, row, column) => {
     const id = filter.pivotId || filter.id
     if (!(row[id] !== undefined)) return true;
     let content = normalizeString(String(row[id]));
     return content.includes(normalizeString(filter.value));
   }
 
-  handleClick(state, rowInfo, column, instance) {
+  handleClick = (state, rowInfo, column, instance) => {
     return {
       onClick: (e, handleOriginal) => {
         if (column.Header == "Full Name") {
-          console.log(rowInfo);
-          console.log("it can navigate to this id:", rowInfo.original.id)
+          console.log(rowInfo.original.connectable_id);
+          this.props.linkTo(rowInfo.original.connectable_id);
         }
 
         if (handleOriginal) handleOriginal();
@@ -45,11 +38,11 @@ class Contacts extends React.Component {
     };
   }
 
-  isSelected(key) {
+  isSelected = (key) => {
     return this.state.selection.includes(key);
   };
 
-  toggleAll() {
+  toggleAll = () => {
     const selectAll = this.state.selectAll ? false : true;
     const selection = [];
     if (selectAll) {
@@ -65,7 +58,7 @@ class Contacts extends React.Component {
     this.setState({ selectAll, selection });
   };
 
-  toggleSelection(key, shift, row) {
+  toggleSelection = (key, shift, row) => {
     let selection = [...this.state.selection];
     const keyIndex = selection.indexOf(key);
     // check to see if the key exists
@@ -139,7 +132,6 @@ class Contacts extends React.Component {
     }]
 
     const onExport = () => {
-      console.log('ARRAY OF IDS', this.state.selection)
       this.props.makeCSV(this.state.selection);
     }
 
@@ -172,6 +164,7 @@ class Contacts extends React.Component {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { push } from 'connected-react-router';
 import contactActions from '../../actions/contactActions';
 import { queryString } from '../../middleware/restApi';
 
@@ -182,6 +175,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(contactActions, dispatch),
+  linkTo: (id) => dispatch(push(`/venues/edit/${id}`))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Contacts);
