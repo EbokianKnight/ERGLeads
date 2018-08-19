@@ -2,6 +2,7 @@ import React from 'react';
 import VenueForm from '../../components/Venue/VenueForm.js';
 import VenueFormNew from '../../components/Venue/VenueFormNew.js';
 import VenueNav from '../../components/Venue/VenueNav.js';
+import ContactCollection from '../../components/Contact/ContactCollection.js';
 import { Modal, Button } from 'semantic-ui-react';
 
 class VenueShowPage extends React.Component {
@@ -68,9 +69,11 @@ class VenueShowPage extends React.Component {
             </Modal>
           </div>
           <div>
-            {
-              record.contacts && record.contacts.map((c, i) => <div key={i}>{c.full_name}</div>)
-            }
+            <ContactCollection
+              contacts={record.contacts}
+              actions={null}
+              errors={null}
+            />
           </div>
         </div>
       );

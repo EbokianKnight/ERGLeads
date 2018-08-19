@@ -2,6 +2,12 @@ import React from 'react';
 import { Form, Text, TextArea, Select, Option } from 'informed';
 import { Button } from 'semantic-ui-react';
 
+const kindOfCountries =  [
+  { value: 'USA', text: 'USA' },
+  { value: 'Canada', text: 'Canada' },
+  { value: 'Mexico', text: 'Mexico' },
+];
+
 export default ({ venueID, errors, record, disable, actions }) => {
   const onSubmitForm = (params) => {
     const contactParams = {
