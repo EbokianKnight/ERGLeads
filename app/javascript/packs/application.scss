@@ -2,6 +2,7 @@
 
 $primary_color: #e6d4bb;
 $secondary_color: #ccc;
+$background: #fafafa;
 $warn_color: darkred;
 $black: #333;
 $title_font: 24px;
@@ -161,3 +162,44 @@ label { font-size: $base_font; font-weight: 500; }
   }
 }
 // Loader Component CSS END
+
+
+.contact-app-container {
+  background: $background;
+}
+
+.ReactTable {
+  background: white;
+}
+
+.venue-form-page {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 50% 50%;
+  grid-column-gap: 8px;
+  grid-row-gap: 5px;
+  margin-bottom: 5px;
+}
+
+.venue-navigation {
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 30% 40% 30%;
+  grid-column-gap: 8px;
+  margin-bottom: 10px;
+}
+
+.ui.form .field {  margin: 0 0 4px 0 };
+.ui.search>.results { overflow: scroll; max-height: 300px; }
+
+.field-container {
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: 100px auto;
+  grid-template-areas: "forml formf" "blank errors";
+  grid-column-gap: 8px;
+  grid-row-gap: 4px;
+  .forml { grid-area: forml; text-align: right; align-self:center; size: 1em }
+  .formf { grid-area: formf; }
+  .has-errors { grid-area: errors; color: #9f3a38; }
+}
