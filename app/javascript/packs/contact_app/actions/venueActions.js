@@ -1,5 +1,23 @@
 import RestApi from '../middleware/restApi.js';
 
+const emptyVenue = {
+  id: null,
+  name: '',
+  phone: '',
+  email: '',
+  website: '',
+  kind: '',
+  other_kind: '',
+  comments: '',
+  location: {
+    country: 'USA',
+    state: '',
+    city: '',
+    street: '',
+    zipcode: ''
+  }
+}
+
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -66,7 +84,7 @@ const update = (id, data) => (dispatch, getState) => {
 
 const destroy = (id) => (dispatch, getState) => {
   VenueApi.delete(id)
-    .then((res) => dispatch(receiveRecord(res)))
+    .then((res) => dispatch(receiveRecord(emptyVenue)))
     .catch((err) => dispatch(receiveErrors(err)))
 }
 
