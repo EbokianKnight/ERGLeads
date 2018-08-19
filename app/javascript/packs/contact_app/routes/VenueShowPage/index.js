@@ -33,6 +33,11 @@ class VenueShowPage extends React.Component {
     this.props.actions.destroy(this.props.record.id);
     this.props.backToIndex();
   }
+  deleteContactRecord = (id) => {
+    if (!this.props.record.id) return;
+    this.props.contactActions.destroy(id);
+    this.props.backToIndex();
+  }
   render() {
     const { problems, venues, record, errors, actions, loadingID, navigateTo } = this.props;
     if (problems) {
@@ -85,6 +90,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { push } from 'connected-react-router';
 import venueActions from '../../actions/venueActions';
+import contactActions from '../../actions/contactActions';
 
 const pluckProblemsFromState = (error_state) => {
   if (error_state.code != 'base_error') return null;
@@ -116,6 +122,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(venueActions, dispatch),
+  contactActions: bindActionCreators(contactActions, dispatch),
   backToIndex: () => dispatch(push('/venues')),
   redirectToNew: () => dispatch(push('/venues/new')),
   navigateTo: (id) => dispatch(push(`/venues/edit/${id}`)),

@@ -10,23 +10,26 @@ const contructTitle = (record) => {
 
 const EachContact = ({ index, activeIndex, record, handleClick, errors, actions }) => {
   console.log(index, record)
-  return [
-    <Accordion.Title key={'title'+index} active={activeIndex == index} index={index} onClick={handleClick}>
-      <Icon name='dropdown' />
-      {
-        record ?
-          <Header as={'span'} textAlign='center'>{contructTitle(record)}</Header>
-        : <Header as={'span'} textAlign='center'>New Contact</Header>
-      }
-    </Accordion.Title>,
-    <Accordion.Content key={'content'+index} active={activeIndex == index}>
-      {
-        (!record) ?
-          <ContactFormNew record={record} errors={errors} actions={actions} />
-        : <ContactForm record={record} errors={errors} actions={actions} />
-      }
-    </Accordion.Content>
-  ]
+  return (
+    <div key={record && record.id || index}>
+      <Accordion.Title active={activeIndex == index} index={index} onClick={handleClick}>
+        <Icon name='dropdown' />
+        {
+          record ?
+            <Header as={'span'}>{contructTitle(record)}</Header>
+          : <Header as={'span'}>New Contact</Header>
+        }
+      </Accordion.Title>
+      <Accordion.Content active={activeIndex == index}>
+        {
+          (!record) ?
+            <ContactFormNew record={record} errors={errors} actions={actions} />
+          : <ContactForm record={record} errors={errors} actions={actions} />
+        }
+      </Accordion.Content>
+    </div>
+  )
+
 }
 
 class ContactCollection extends Component {
