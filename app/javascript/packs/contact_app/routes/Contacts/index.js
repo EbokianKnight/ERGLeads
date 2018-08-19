@@ -99,7 +99,7 @@ class Contacts extends React.Component {
     const columns = [{
       Header: 'Full Name',
       accessor: 'full_name',
-      maxWidth: 300,
+      maxWidth: 160,
       style: { cursor: 'pointer' },
       sortMethod: (a, b) =>
         a.trim().split(' ').pop() > b.trim().split(' ').pop()
@@ -107,7 +107,7 @@ class Contacts extends React.Component {
         id: 'phone',
         Header: 'Phone Number',
         accessor: 'phone',
-        width: 120,
+        width: 100,
       }, {
         id: 'ext',
         Header: 'Ext.',
@@ -125,13 +125,17 @@ class Contacts extends React.Component {
       }, {
         id: 'location.city',
         Header: 'City',
-        width: 150,
+        width: 120,
         accessor: data => data.location.city
       }, {
         id: 'location.state',
         Header: 'State',
-        width: 60,
+        width: 50,
         accessor: data => data.location.state
+      }, {
+        id: 'venue_name',
+        Header: 'Venue Name',
+        accessor: 'venue_name'
     }]
 
     const onExport = () => {
