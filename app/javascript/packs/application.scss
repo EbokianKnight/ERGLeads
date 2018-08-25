@@ -17,6 +17,7 @@ body {
   font-variant: normal;
   font-weight: 500;
   font-size: $base_font;
+  background: $background;
 }
 h1 { font-size: $title_font; font-weight: 500; }
 label { font-size: $base_font; font-weight: 500; }
@@ -30,22 +31,23 @@ li { list-style: none; }
 
 .main_header {
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 65% 35%;
   grid-template-rows: auto;
-  grid-template-areas: 'header menu';
+  grid-template-areas: 'lheader rmenu';
   background: $primary_color;
   align-items: center;
   padding: 15px 30px;
 
   .erg_leads {
-    grid-area: 'header';
+    grid-area: lheader;
     margin: 0;
   }
 
   .login_menu {
-    grid-area: 'menu';
+    grid-area: rmenu;
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
 }
 
@@ -64,6 +66,7 @@ li { list-style: none; }
 }
 
 .ui.form.login_form {
+  border: 1px solid rgba(34,36,38,.15);
   margin-bottom: 10px;
   .field {
     margin-bottom: 20px;
@@ -102,10 +105,6 @@ li { list-style: none; }
       background: #888;
     }
   }
-}
-
-.contact-app-container {
-  background: $background;
 }
 
 .ReactTable {

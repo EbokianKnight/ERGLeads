@@ -137,6 +137,12 @@ class Contacts extends React.Component {
 
     return (
       <div>
+        <div className="ui menu">
+          <div className="item">Other Actions:</div>
+          <a href={this.props.makeCSV(this.state.selection)} download className='item'>
+            <button className='ui button blue'>Export CSV</button>
+          </a>
+        </div>
         <CheckboxTable
           ref={r => (this.checkboxTable = r)}
           className="-highlight"
@@ -150,9 +156,6 @@ class Contacts extends React.Component {
           getTdProps={this.handleClick}
           {...checkboxProps}
         />
-        <a href={this.props.makeCSV(this.state.selection)} download>
-          <button>Export CSV</button>
-        </a>
       </div>
     );
   }
