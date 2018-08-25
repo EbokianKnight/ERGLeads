@@ -138,9 +138,9 @@ class Contacts extends React.Component {
     return (
       <div>
         <div className="ui menu">
-          <div className="item">Other Actions:</div>
+          <div className="item">Actions:</div>
           <a href={this.props.makeCSV(this.state.selection)} download className='item'>
-            <button className='ui button blue'>Export CSV</button>
+            <button className='ui button blue'>Export Checked to CSV</button>
           </a>
         </div>
         <CheckboxTable
