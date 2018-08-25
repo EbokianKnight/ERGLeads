@@ -63,10 +63,11 @@ li { list-style: none; }
   padding: 20px;
   margin: 20px auto;
   border-radius: 2px;
+  border: 1px solid rgba(34,36,38,.15);
+  background: white;
 }
 
 .ui.form.login_form {
-  border: 1px solid rgba(34,36,38,.15);
   margin-bottom: 10px;
   .field {
     margin-bottom: 20px;
