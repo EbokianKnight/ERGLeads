@@ -9,7 +9,6 @@ const contructTitle = (record) => {
 }
 
 const EachContact = ({ index, activeIndex, record, handleClick, errors, actions }) => {
-  console.log(index, record)
   return (
     <div key={record && record.id || index}>
       <Accordion.Title active={activeIndex == index} index={index} onClick={handleClick}>
