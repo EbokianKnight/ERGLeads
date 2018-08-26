@@ -12,7 +12,8 @@ module Api
       end
 
       def create
-        Contact.create!(allowed_params)
+        record = Contact.new(allowed_params)
+        record.save!
         render json: { contact: record }, status: 202
       end
 

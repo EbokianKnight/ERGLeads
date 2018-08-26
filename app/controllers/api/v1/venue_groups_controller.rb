@@ -12,7 +12,8 @@ module Api
       end
 
       def create
-        VenueGroup.create!(allowed_params)
+        record = VenueGroup.new(allowed_params)
+        record.save!
         render json: { venue_group: record }, status: 202
       end
 

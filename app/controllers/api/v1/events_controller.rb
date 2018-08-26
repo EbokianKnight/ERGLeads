@@ -12,7 +12,8 @@ module Api
       end
 
       def create
-        Event.create!(allowed_params)
+        record = Event.new(allowed_params)
+        record.save!
         render json: { event: record }, status: 202
       end
 
