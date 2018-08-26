@@ -9,8 +9,8 @@ const CheckboxTable = checkboxHOC(ReactTable);
 import { normalizeString } from '../../utils';
 
 class Contacts extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = { selection: [], selectAll: false };
   }
 
@@ -29,7 +29,6 @@ class Contacts extends React.Component {
     return {
       onClick: (e, handleOriginal) => {
         if (column.Header == "Full Name") {
-          console.log(rowInfo.original.connectable_id);
           this.props.links.venueEdit(rowInfo.original.connectable_id);
         }
 
@@ -178,7 +177,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(contactActions, dispatch),
-  links: () => applicationLinks(dispatch),
+  links: applicationLinks(dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Contacts);
