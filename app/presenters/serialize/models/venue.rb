@@ -55,7 +55,6 @@ module Serialize
       end
 
       def location_details(object)
-        return {} unless object.location
         Serialize::Models::Location.new(object.location).as_json
       end
     end

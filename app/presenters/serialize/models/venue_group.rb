@@ -47,7 +47,6 @@ module Serialize
       end
 
       def location_details(object)
-        return nil unless object.location
         Serialize::Models::Location.new(object.location)
       end
     end
