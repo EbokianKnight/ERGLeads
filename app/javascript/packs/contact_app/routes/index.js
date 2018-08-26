@@ -12,6 +12,16 @@ import VenueNewPage from './VenueNewPage';
 /* <Route exact path='/groups' component={VenueGroups} />
 <Route exact path='/events' component={Events} /> */
 
+import { push } from 'connected-react-router';
+
+export const applicationLinks = (dispatch) => ({
+  root: () => dispatch(push('/')),
+  contacts: () => dispatch(push('/contacts')),
+  venues: () => dispatch(push('/venues')),
+  venueNew: () => dispatch(push('/venues/new')),
+  venueEdit: (id) => dispatch(push('/venues/edit/' + id)),
+})
+
 const Router = (props) => (
   <ConnectedRouter { ...props }>
     <Application>

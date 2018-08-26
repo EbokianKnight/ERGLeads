@@ -5,11 +5,14 @@ class VenueNewPage extends React.Component {
   constructor() {
     super();
   }
+  componentDidMount() {
+    this.props.actions.clear();
+  }
   componentWillUnmount() {
     this.props.actions.clear();
   }
   render() {
-    const { problems, venues, record, errors, actions, loadingID, navigateTo } = this.props;
+    const { problems, venues, record, errors, actions, loadingID, links } = this.props;
     if (problems) {
       return <div className="form-errors-warn">
         <h1>{problems.status}</h1>
@@ -19,7 +22,7 @@ class VenueNewPage extends React.Component {
       return (
         <div className="venue-form-page">
           <div>
-            <VenueFormNew venue={record} errors={errors} actions={actions}/>
+            <VenueFormNew venue={record} errors={errors} actions={actions} links={links} />
           </div>
         </div>
       );
@@ -29,7 +32,7 @@ class VenueNewPage extends React.Component {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { push } from 'connected-react-router';
+import { applicationLinks } from '../index.js';
 import venueActions from '../../actions/venueActions';
 
 const pluckProblemsFromState = (error_state) => {
@@ -54,16 +57,14 @@ const mapStateToProps = (state, ownProps) => {
       venues: shapeVenues(state.venues.venues),
       record: record,
       errors: error_state,
-      problems: pluckProblemsFromState(error_state)
+      problems: pluckProblemsFromState(error_state),
     }
   )
 }
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(venueActions, dispatch),
-  backToIndex: () => dispatch(push('/venues')),
-  redirectToNew: () => dispatch(push('/venues/new')),
-  navigateTo: (id) => dispatch(push(`/venues/${id}`)),
+  links: applicationLinks(dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VenueNewPage);

@@ -30,7 +30,7 @@ class Contacts extends React.Component {
       onClick: (e, handleOriginal) => {
         if (column.Header == "Full Name") {
           console.log(rowInfo.original.connectable_id);
-          this.props.linkTo(rowInfo.original.connectable_id);
+          this.props.links.venueEdit(rowInfo.original.connectable_id);
         }
 
         if (handleOriginal) handleOriginal();
@@ -167,7 +167,7 @@ class Contacts extends React.Component {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { push } from 'connected-react-router';
+import { applicationLinks } from '../index.js';
 import contactActions from '../../actions/contactActions';
 import { queryString } from '../../middleware/restApi';
 
@@ -178,7 +178,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(contactActions, dispatch),
-  linkTo: (id) => dispatch(push(`/venues/edit/${id}`))
+  links: () => applicationLinks(dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Contacts);

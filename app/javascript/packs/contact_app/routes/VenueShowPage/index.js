@@ -6,14 +6,14 @@ import ContactCollection from '../../components/Contact/ContactCollection.js';
 import { Modal, Button } from 'semantic-ui-react';
 
 class VenueShowPage extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = { deleting: false };
   }
   componentDidMount() {
     const id = this.props.match.params.id;
     if (/^\d+$/.test(id)) this.props.actions.show(id);
-    else this.props.redirectToNew();
+    else this.props.links.venueNew();
   }
   componentWillUnmount() {
     this.props.actions.clear();
@@ -31,15 +31,15 @@ class VenueShowPage extends React.Component {
   deleteRecord = () => {
     if (!this.props.record.id) return;
     this.props.actions.destroy(this.props.record.id);
-    this.props.backToIndex();
+    this.props.links.contacts();
   }
   deleteContactRecord = (id) => {
     if (!this.props.record.id) return;
     this.props.contactActions.destroy(id);
-    this.props.backToIndex();
+    this.props.links.contacts();
   }
   render() {
-    const { problems, venues, record, errors, actions, loadingID, navigateTo } = this.props;
+    const { problems, venues, record, errors, actions, loadingID, links } = this.props;
     if (problems) {
       return <div className="form-errors-warn">
         <h1>{problems.status}</h1>
@@ -49,7 +49,7 @@ class VenueShowPage extends React.Component {
       return (
         <div className="venue-form-page">
           <div>
-            <VenueNav list={venues} actions={actions} id={loadingID} navigateTo={navigateTo}/>
+            <VenueNav list={venues} actions={actions} id={loadingID} navigateTo={links.venueEdit}/>
             <VenueFormNew loading={true} />
           </div>
         </div>
@@ -58,7 +58,7 @@ class VenueShowPage extends React.Component {
       return (
         <div className="venue-form-page">
           <div>
-            <VenueNav list={venues} actions={actions} id={loadingID} navigateTo={navigateTo}/>
+            <VenueNav list={venues} actions={actions} id={loadingID} navigateTo={links.venueEdit}/>
             <VenueForm venue={record} errors={errors} actions={actions}/>
             <hr />
             <Button fluid onClick={this.open}>Delete Venue</Button>
@@ -88,7 +88,7 @@ class VenueShowPage extends React.Component {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { push } from 'connected-react-router';
+import { applicationLinks } from '../index.js';
 import venueActions from '../../actions/venueActions';
 import contactActions from '../../actions/contactActions';
 
@@ -123,9 +123,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(venueActions, dispatch),
   contactActions: bindActionCreators(contactActions, dispatch),
-  backToIndex: () => dispatch(push('/venues')),
-  redirectToNew: () => dispatch(push('/venues/new')),
-  navigateTo: (id) => dispatch(push(`/venues/edit/${id}`)),
+  links: applicationLinks(dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VenueShowPage);

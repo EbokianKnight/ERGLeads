@@ -6,11 +6,11 @@ import React from 'react';
 import VenueTable from '../../components/Venue/VenueTable.js'
 
 class Venues extends React.Component {
-  constructor() { super() }
+  constructor(props) { super(props) }
   componentDidMount() { this.props.actions.index() }
   render() {
     return (
-      <VenueTable venues={this.props.venues} linkTo={this.props.linkToForm} />
+      <VenueTable venues={this.props.venues} linkTo={this.props.links.venueEdit} />
     );
   }
 }
@@ -21,7 +21,7 @@ class Venues extends React.Component {
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { push } from 'connected-react-router';
+import { applicationLinks } from '../index.js';
 import venueActions from '../../actions/venueActions';
 
 const mapStateToProps = (state, ownProps) => ({
@@ -30,8 +30,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(venueActions, dispatch),
-  linkToNew: () => dispatch(push('venues/new')),
-  linkToForm: (id) => dispatch(push(`/venues/edit/${id}`)),
+  links: applicationLinks(dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Venues);
