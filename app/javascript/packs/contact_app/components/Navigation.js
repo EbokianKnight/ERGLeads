@@ -26,8 +26,8 @@ const mapStateToProps = (state, ownProps) => ({
       active: '/venues' == state.router.location.pathname,
       label: 'Venues',
     },{
-      path: '/',
-      active: '/' == state.router.location.pathname,
+      path: '/contacts',
+      active: '/contacts' == state.router.location.pathname || '/' == state.router.location.pathname,
       label: 'Contacts',
     },{
       path: '/venues/new',
