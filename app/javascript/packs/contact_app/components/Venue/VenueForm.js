@@ -61,7 +61,7 @@ export default ({ errors, venue, disable, actions }) => {
         <Errors match='kind'/>
       </div>
       <div className={`field field-container${hasError('other_kind')}`}>
-        <label className='forml' htmlFor={`other_kind-${id}`}>Other Kind</label>
+        <label className='forml' htmlFor={`other_kind-${id}`}>Kind (If Other)</label>
         <Text className='formf' field='other_kind' id={`other_kind-${id}`} initialValue={venue.other_kind} />
         <Errors match='other_kind'/>
       </div>

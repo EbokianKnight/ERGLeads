@@ -85,7 +85,7 @@ class VenueFormNew extends React.Component {
           <Errors match='kind'/>
         </div>
         <div className={`field field-container${hasError('other_kind')}`}>
-          <label className='forml' htmlFor='other_kind-new'>Other Kind</label>
+          <label className='forml' htmlFor='other_kind-new'>Kind (If Other)</label>
           <Text className='formf' field='other_kind' id='other_kind-new'/>
           <Errors match='other_kind'/>
         </div>

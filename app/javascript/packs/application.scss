@@ -1,8 +1,9 @@
 @import 'react-table/react-table.css';
-
-$primary_color: #e6d4bb;
+$primary_color: #00599b;
 $secondary_color: #ccc;
-$background: #fafafa;
+$background: #f2f6f9;
+$btn_color: #2987cd;
+$hover_color: #76c85d;
 $warn_color: darkred;
 $black: #333;
 $title_font: 24px;
@@ -19,15 +20,30 @@ body {
   font-size: $base_font;
   background: $background;
 }
-h1 { font-size: $title_font; font-weight: 500; }
-label { font-size: $base_font; font-weight: 500; }
-li { list-style: none; }
 
-.notice, .alert {
-  font-size: $base_font;
-  margin: 10px 0px;
+h1 {
+  font-size: $title_font;
+  font-weight: 500;
 }
-.alert { color: $warn_color; }
+
+label {
+  font-size: $base_font;
+  font-weight: 500;
+}
+
+li {
+  list-style: none;
+}
+
+.alert,
+.notice {
+  font-size: $base_font;
+  margin: 10px 0;
+}
+
+.alert {
+  color: $warn_color;
+}
 
 .main_header {
   display: grid;
@@ -35,20 +51,104 @@ li { list-style: none; }
   grid-template-rows: auto;
   grid-template-areas: 'lheader rmenu';
   background: $primary_color;
+  color: #fff;
   align-items: center;
+  max-width: 1040px;
+  min-width: 600px;
+  margin: 20px auto 0;
   padding: 15px 30px;
 
   .erg_leads {
     grid-area: lheader;
     margin: 0;
+    color: #fff;
   }
 
   .login_menu {
     grid-area: rmenu;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
   }
+}
+
+h1.ui.header .sub.header {
+  color: #a7ceec;
+}
+
+.current_user {
+  margin-right: 25px;
+}
+
+.ui.blue.button:hover,
+.ui.blue.buttons .button:hover {
+  background-color: $hover_color;
+}
+
+.ReactTable .-pagination .-next .-btn,
+.ReactTable .-pagination .-previous .-btn,
+.contact-app-main .ui.menu .active.item,
+.ui[class*="right labeled"].icon.button,
+.ui[class*="left labeled"].icon.button {
+  color: #fff;
+  background-color: $btn_color;
+}
+
+.ReactTable .-pagination .-next .-btn:hover,
+.ReactTable .-pagination .-previous .-btn:hover,
+.contact-app-main .ui.menu.fluid .item:hover,
+.ui[class*="right labeled"].icon.button:hover,
+.ui[class*="left labeled"].icon.button:hover {
+  background-color: $hover_color;
+}
+
+.ReactTable .-pagination .-next .-btn:disabled,
+.ReactTable .-pagination .-previous .-btn:disabled,
+.ui[class*="right labeled"].icon.button:disabled,
+.ui[class*="left labeled"].icon.button:disabled {
+  color: #fff;
+  background-color: #bbb;
+}
+
+.venue-form-page div {
+  background-color: #fff;
+  padding: 4px;
+}
+
+.ui.small.form .ui.header:first-child {
+  margin-top: 10px;
+}
+
+.pagination-bottom {
+  margin-top: 10px;
+}
+
+.ui.search .ui.icon.input > input {
+  width: 100%;
+  margin-top: -5px;
+}
+
+.ui[class*="right labeled"].icon.button,
+.ui[class*="left labeled"].icon.button {
+  height: 40px;
+}
+
+.venue-form-page div > .ui.fluid.button {
+  background-color: #d23333;
+  color: #fff;
+}
+
+.venue-form-page div > .ui.fluid.button:hover {
+  background-color: #d48811;
+}
+
+.accordion div:last-child .title span {
+  color: $btn_color;
+}
+
+.accordion div:last-child .title span:hover,
+.rt-tr-group .rt-td a:hover {
+  color: $hover_color;
 }
 
 #error_explanation {
@@ -56,7 +156,9 @@ li { list-style: none; }
   font-size: $base_font;
 }
 
-.ui.form .field {  margin: 0 0 4px 0 };
+.ui.form .field {
+  margin: 0;
+};
 
 .devise_form_container {
   max-width: 600px;
@@ -69,6 +171,7 @@ li { list-style: none; }
 
 .ui.form.login_form {
   margin-bottom: 10px;
+
   .field {
     margin-bottom: 20px;
   }
@@ -102,6 +205,7 @@ li { list-style: none; }
     padding: 20px;
     cursor: pointer;
     flex: 1;
+
     &:hover {
       background: #888;
     }
@@ -115,7 +219,7 @@ li { list-style: none; }
 .venue-form-page {
   display: grid;
   grid-template-rows: auto;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 49% 49%;
   grid-column-gap: 20px;
   grid-row-gap: 20px;
   margin-bottom: 5px;
@@ -129,7 +233,10 @@ li { list-style: none; }
   margin-bottom: 10px;
 }
 
-.ui.search>.results { overflow: scroll; max-height: 300px; }
+.ui.search > .results {
+  overflow: scroll;
+  max-height: 300px;
+}
 
 .field-container {
   display: grid;
@@ -138,7 +245,24 @@ li { list-style: none; }
   grid-template-areas: "forml formf" "blank errors";
   grid-column-gap: 8px;
   grid-row-gap: 4px;
-  .forml { grid-area: forml; text-align: right; align-self:center; size: 1em }
-  .formf { grid-area: formf; }
-  .has-errors { grid-area: errors; color: #9f3a38; }
+
+  .forml {
+    grid-area: forml;
+    text-align: right;
+    align-self: center;
+    size: 1em;
+  }
+
+  .formf {
+    grid-area: formf;
+  }
+
+  .has-errors {
+    grid-area: errors;
+    color: #9f3a38;
+  }
+}
+
+.formf.ui.action.input {
+  padding: 0;
 }
