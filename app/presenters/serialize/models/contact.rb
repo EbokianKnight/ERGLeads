@@ -35,7 +35,10 @@ module Serialize
       end
 
       def location_details(object)
-        Serialize::Models::Location.new(object.location).as_json
+        Serialize::Models::Location.new(
+          object.location,
+          object.connectable&.location
+        ).as_json
       end
     end
   end
