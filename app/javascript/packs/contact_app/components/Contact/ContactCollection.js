@@ -1,30 +1,41 @@
 import React, { Component } from 'react'
 import ContactForm from './EditWrap.js';
 import ContactFormNew from './ContactFormNew.js';
-import { Accordion, Icon, Header } from 'semantic-ui-react'
+import { Accordion, Icon, Header, Message } from 'semantic-ui-react'
 
 const contructTitle = (record) => {
   if (!record.job_title) return record.full_name;
   return record.full_name + ', ' + record.job_title;
 }
 
-const EachContact = ({ index, activeIndex, record, handleClick, errors, actions }) => {
+const ForEachContent = ({ parentID, record, actions }) => {
+  if (record && record.status == 'ok') {
+    return (
+      <Message positive
+        onDismiss={() => actions.status(record.id, '')}
+        icon='checkmark'
+        header='Success!'
+        content={`The Contact has been successfully entered into the database.`}
+      />
+    )
+  }
+  if (record.id != 'new') return <ContactForm parentID={parentID} record={record} actions={actions} />;
+  else return <ContactFormNew parentID={parentID} record={record} actions={actions} />;
+}
+
+const EachContact = ({ parentID, index, activeIndex, record, handleClick, actions }) => {
   return (
-    <div key={record && record.id || index}>
+    <div key={index}>
       <Accordion.Title active={activeIndex == index} index={index} onClick={handleClick}>
         <Icon name='dropdown' />
         {
-          record ?
+          record.id != 'new' ?
             <Header as={'span'}>{contructTitle(record)}</Header>
           : <Header as={'span'}>New Contact</Header>
         }
       </Accordion.Title>
       <Accordion.Content active={activeIndex == index}>
-        {
-          (!record) ?
-            <ContactFormNew record={record} errors={errors} actions={actions} />
-          : <ContactForm record={record} errors={errors} actions={actions} />
-        }
+        <ForEachContent parentID={parentID} record={record} actions={actions} />
       </Accordion.Content>
     </div>
   )
@@ -32,30 +43,25 @@ const EachContact = ({ index, activeIndex, record, handleClick, errors, actions 
 }
 
 class ContactCollection extends Component {
-  state = { activeIndex: -1 }
-
   handleClick = (e, titleProps) => {
     const { index } = titleProps;
-    const { activeIndex } = this.state;
+    const activeIndex = this.props.selectedContact;
     const newIndex = activeIndex === index ? -1 : index;
-
-    this.setState({ activeIndex: newIndex })
+    this.props.actions.select(newIndex);
   }
 
   render() {
-    const { contacts, errors, actions } = this.props;
-    const { activeIndex } = this.state;
-    const arrayOfContacts = (contacts && contacts.length) ? [...contacts, null] : [null];
+    const { contacts, actions, parentID, selectedContact } = this.props;
     return (
       <Accordion>
         {
-          arrayOfContacts.map((record, idx) =>
+          contacts.map((record, idx) =>
             <EachContact key={idx}
-              index={idx}
-              activeIndex={activeIndex}
+              index={record.id}
+              parentID={parentID}
+              activeIndex={selectedContact}
               record={record}
               handleClick={this.handleClick}
-              errors={errors || []}
               actions={actions}
             />
           )

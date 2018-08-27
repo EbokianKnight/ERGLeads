@@ -17,6 +17,7 @@ module ErrorHandler
 
       def invalid_record(e)
         new_error = ApiError::ValidationFailed.new(e.record)
+        Rails.logger.info new_error.as_json
         render_error(new_error)
       end
 

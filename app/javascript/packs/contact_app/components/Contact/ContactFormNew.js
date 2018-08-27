@@ -8,15 +8,16 @@ const kindOfCountries =  [
   { value: 'Mexico', text: 'Mexico' },
 ];
 
-export default ({ venueID, errors, record, disable, actions }) => {
+export default ({ parentID, record, disable, actions }) => {
   const onSubmitForm = (params) => {
     const contactParams = {
       ...params,
-      connectable_type: 'Contact',
-      connectable_id: venueID,
+      id: null,
+      connectable_type: 'Venue',
+      connectable_id: parentID,
     }
-    if (!record.id) actions.create(params);
-    else actions.update(record.id, params);
+
+    actions.create(contactParams);
   }
 
   const Errors = ({ match }) => {
@@ -26,8 +27,8 @@ export default ({ venueID, errors, record, disable, actions }) => {
   }
 
   const findErrors = (match) => {
-    if (!errors || !errors.errors) return [];
-    const matches = errors.errors.filter(obj => obj.parameter === match);
+    if (!record.errors || !record.errors.errors) return [];
+    const matches = record.errors.errors.filter(obj => obj.parameter === match);
     if (matches.length === 0) return [];
     else return matches
   }
@@ -36,69 +37,71 @@ export default ({ venueID, errors, record, disable, actions }) => {
     return findErrors(matcher).length > 0 ? ' error' : '';
   }
 
+  const loading = record.status == 'in progress' ? ' loading' : '';
+
   return (
-    <Form className='ui small form' onSubmit={onSubmitForm}>
+    <Form className={`ui small form${loading}`} onSubmit={onSubmitForm}>
       <div className={`field field-container${hasError('first_name')}`}>
         <label className='forml' htmlFor='first_name-new'>First Name</label>
-        <Text className='formf' field='first_name' id='first_name-new' />
+        <Text className='formf' field='first_name' id='first_name-new' initialValue='' />
         <Errors match='first_name'/>
       </div>
       <div className={`field field-container${hasError('last_name')}`}>
         <label className='forml' htmlFor='last_name-new'>Last Name</label>
-        <Text className='formf' field='last_name' id='last_name-new' />
+        <Text className='formf' field='last_name' id='last_name-new' initialValue='' />
         <Errors match='last_name'/>
       </div>
       <div className={`field field-container${hasError('job_title')}`}>
         <label className='forml' htmlFor='job_title-new'>Job Title</label>
-        <Text className='formf' field='job_title' id='job_title-new' />
+        <Text className='formf' field='job_title' id='job_title-new' initialValue='' />
         <Errors match='job_title'/>
       </div>
 
       <div className={`field field-container${hasError('email')}`}>
         <label className='forml' htmlFor='email-new'>Email Address</label>
-        <Text className='formf' field='email' id='email-new' />
+        <Text className='formf' field='email' id='email-new' initialValue='' />
         <Errors match='email'/>
       </div>
       <div className={`field field-container${hasError('phone')}`}>
         <label className='forml' htmlFor='phone-new'>Phone Number</label>
-        <Text className='formf' field='phone' id='phone-new' />
+        <Text className='formf' field='phone' id='phone-new' initialValue='' />
         <Errors match='phone'/>
       </div>
       <div className={`field field-container${hasError('ext')}`}>
         <label className='forml' htmlFor='ext-new'>Extension</label>
-        <Text className='formf' field='ext' id='ext-new' />
+        <Text className='formf' field='ext' id='ext-new' initialValue='' />
         <Errors match='ext'/>
       </div>
 
       {/* LOCATION */}
       <div className={`field field-container${hasError('location.street')}`}>
         <label className='forml' htmlFor='address-new'>Address1</label>
-        <Text className='formf' field='location_attributes.street' id='address-new' />
+        <Text className='formf' field='location_attributes.street' id='address-new' initialValue='' />
         <Errors match='location.street'/>
       </div>
       <div className={`field field-container${hasError('location.street2')}`}>
         <label className='forml' htmlFor='address2-new'>Address2</label>
-        <Text className='formf' field='location_attributes.street2' id='address2-new' />
+        <Text className='formf' field='location_attributes.street2' id='address2-new' initialValue='' />
         <Errors match='location.street2'/>
       </div>
       <div className={`field field-container${hasError('location.city')}`}>
         <label className='forml' htmlFor='city-new'>City</label>
-        <Text className='formf' field='location_attributes.city' id='city-new' />
+        <Text className='formf' field='location_attributes.city' id='city-new' initialValue='' />
         <Errors match='location.city'/>
       </div>
       <div className={`field field-container${hasError('location.state')}`}>
         <label className='forml' htmlFor='state.new'>State / Province</label>
-        <Text className='formf' field='location_attributes.state' id='state.new' />
+        <Text className='formf' field='location_attributes.state' id='state.new' initialValue='' />
         <Errors match='location.state'/>
       </div>
       <div className={`field field-container${hasError('location.zipcode')}`}>
         <label className='forml' htmlFor='zipcode-new'>Zipcode</label>
-        <Text className='formf' field='location_attributes.zipcode' id='zipcode-new' />
+        <Text className='formf' field='location_attributes.zipcode' id='zipcode-new' initialValue='' />
         <Errors match='location.zipcode'/>
       </div>
       <div className={`field field-container${hasError('location.country')}`}>
         <label className='forml' htmlFor='country-new'>Country</label>
-        <Select className='formf ui selection dropdown' field='location_attributes.country' id='country-new'>
+        <Select className='formf ui selection dropdown' field='location_attributes.country' id='country-new' initialValue=''>
           { kindOfCountries.map((opt, idx) => <Option value={opt.value} key={idx}>{opt.text}</Option>) }
         </Select>
         <Errors match='location.country'/>
@@ -106,10 +109,10 @@ export default ({ venueID, errors, record, disable, actions }) => {
 
       <div className={`field field-container${hasError('location.comments')}`}>
         <label className='forml' htmlFor='comments-new'>Comments</label>
-        <TextArea className='formf' field='comments' id='comments-new' />
+        <TextArea className='formf' field='comments' id='comments-new' initialValue='' />
       </div>
 
-      <Button className="blue" type="submit" fluid disabled={disable}>Submit</Button>
+      <Button className="blue" type="submit" fluid disabled={!!loading}>Submit</Button>
     </Form>
   );
 };

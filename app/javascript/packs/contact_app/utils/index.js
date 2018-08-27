@@ -1,1 +1,4 @@
-export const normalizeString = (str) => str.toLowerCase().replace(/\s|\(|\)|-|\./g,'')
+export const normalizeString = (str) => {
+  if(!str) return '';
+  return str.toLowerCase().replace(/\s|\(|\)|-|\./g,'');
+}

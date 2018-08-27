@@ -39,7 +39,10 @@ class VenueShowPage extends React.Component {
     this.props.links.contacts();
   }
   render() {
-    const { problems, venues, record, errors, actions, loadingID, links } = this.props;
+    const {
+      problems, venues, record, errors, actions, loadingID, links,
+      contacts, contactActions, selectedContact
+    } = this.props;
     if (problems) {
       return <div className="form-errors-warn">
         <h1>{problems.status}</h1>
@@ -49,7 +52,12 @@ class VenueShowPage extends React.Component {
       return (
         <div className="venue-form-page">
           <div>
-            <VenueNav list={venues} actions={actions} id={loadingID} navigateTo={links.venueEdit}/>
+            <VenueNav
+              list={venues}
+              actions={actions}
+              id={loadingID}
+              navigateTo={links.venueEdit}
+            />
             <VenueFormNew loading={true} />
           </div>
         </div>
@@ -58,7 +66,12 @@ class VenueShowPage extends React.Component {
       return (
         <div className="venue-form-page">
           <div>
-            <VenueNav list={venues} actions={actions} id={loadingID} navigateTo={links.venueEdit}/>
+            <VenueNav
+              list={venues}
+              actions={actions}
+              id={loadingID}
+              navigateTo={links.venueEdit}
+            />
             <VenueForm venue={record} errors={errors} actions={actions}/>
             <hr />
             <Button fluid onClick={this.open}>Delete Venue</Button>
@@ -69,15 +82,22 @@ class VenueShowPage extends React.Component {
               </Modal.Content>
               <Modal.Actions>
                 <Button onClick={this.close}>No</Button>
-                <Button negative onClick={this.deleteRecord} icon='trash alternate outline' labelPosition='right' content="Yes Delete It." />
+                <Button
+                  negative
+                  onClick={this.deleteRecord}
+                  icon='trash alternate outline'
+                  labelPosition='right'
+                  content="Yes Delete It."
+                />
               </Modal.Actions>
             </Modal>
           </div>
           <div>
             <ContactCollection
-              contacts={record.contacts}
-              actions={null}
-              errors={null}
+              selectedContact={selectedContact}
+              parentID={record.id}
+              contacts={contacts}
+              actions={contactActions}
             />
           </div>
         </div>
@@ -89,6 +109,7 @@ class VenueShowPage extends React.Component {
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { applicationLinks } from '../index.js';
+import { normalizeString } from '../../utils';
 import venueActions from '../../actions/venueActions';
 import contactActions from '../../actions/contactActions';
 
@@ -106,6 +127,17 @@ const shapeVenues = (venues) => {
   return venues.map((v) => ({ key: v.id, title: v.name, id: v.id }))
 }
 
+// Transforms object look into sorted array for consistent display
+const sortContacts = (contacts) => {
+  if (!contacts) return [];
+  return Object.values(contacts).sort((a,b) => {
+    if (b.id == 'new') return -1
+    if (normalizeString(a.last_name) > normalizeString(b.last_name)) return 1;
+    if (normalizeString(a.last_name) < normalizeString(b.last_name)) return -1;
+    return 0;
+  });
+};
+
 const mapStateToProps = (state, ownProps) => {
   const error_state = state.venues.errors;
   const record = state.venues.venue;
@@ -114,6 +146,8 @@ const mapStateToProps = (state, ownProps) => {
       venues: shapeVenues(state.venues.venues),
       loadingID: record.id,
       record: record,
+      selectedContact: state.contacts.selected,
+      contacts: sortContacts(state.contacts.contact),
       errors: error_state,
       problems: pluckProblemsFromState(error_state)
     }

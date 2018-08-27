@@ -8,15 +8,14 @@ const kindOfCountries =  [
   { value: 'Mexico', text: 'Mexico' },
 ];
 
-export default ({ venueID, errors, record, disable, actions }) => {
+export default ({ parentID, record, disable, actions }) => {
   const onSubmitForm = (params) => {
     const contactParams = {
       ...params,
-      connectable_type: 'Contact',
-      connectable_id: venueID,
+      connectable_type: 'Venue',
+      connectable_id: parentID,
     }
-    if (!record.id) actions.create(params);
-    else actions.update(record.id, params);
+    actions.update(record.id, contactParams);
   }
 
   const Errors = ({ match }) => {
@@ -26,8 +25,8 @@ export default ({ venueID, errors, record, disable, actions }) => {
   }
 
   const findErrors = (match) => {
-    if (!errors || !errors.errors) return [];
-    const matches = errors.errors.filter(obj => obj.parameter === match);
+    if (!record.errors || !record.errors.errors) return [];
+    const matches = record.errors.errors.filter(obj => obj.parameter === match);
     if (matches.length === 0) return [];
     else return matches
   }
@@ -37,9 +36,10 @@ export default ({ venueID, errors, record, disable, actions }) => {
   }
 
   const id = record.id;
+  const loading = record.status == 'in progress' ? ' loading' : '';
 
   return (
-    <Form className='ui small form' onSubmit={onSubmitForm}>
+    <Form className={`ui small form${loading}`} onSubmit={onSubmitForm}>
       <div className={`field field-container${hasError('first_name')}`}>
         <label className='forml' htmlFor={`first_name-${id}`}>First Name</label>
         <Text className='formf' field='first_name' id={`first_name-${id}`} initialValue={record.first_name} />
@@ -122,7 +122,7 @@ export default ({ venueID, errors, record, disable, actions }) => {
         <TextArea className='formf' field='comments' id={`comments-${id}`} initialValue={record.comments} />
       </div>
 
-      <Button className="blue" type="submit" fluid disabled={disable}>Submit</Button>
+      <Button className="blue" type="submit" fluid disabled={!!loading}>Submit</Button>
     </Form>
   );
 };
