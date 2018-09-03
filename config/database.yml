@@ -84,5 +84,4 @@ production:
   <<: *default
   database: ERGBuild_production
   username: ERGBuild
-  host: localhost
   password: <%= ENV['ERGBUILD_DATABASE_PASSWORD'] %>
