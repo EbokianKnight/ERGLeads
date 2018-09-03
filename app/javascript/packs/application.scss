@@ -4,7 +4,9 @@ $secondary_color: #ccc;
 $background: #f2f6f9;
 $btn_color: #2987cd;
 $hover_color: #76c85d;
-$warn_color: darkred;
+$warn_color: #d23333;
+$warn_hover_color: #d48811;
+$subtitle_color: #a7ceec;
 $black: #333;
 $title_font: 24px;
 $large_font: 16px;
@@ -73,7 +75,7 @@ li {
 }
 
 h1.ui.header .sub.header {
-  color: #a7ceec;
+  color: $subtitle_color;
 }
 
 .current_user {
@@ -94,12 +96,20 @@ h1.ui.header .sub.header {
   background-color: $btn_color;
 }
 
+.modal .actions .ui[class*="right labeled"].icon.button{
+  background-color: $warn_color;
+}
+
 .ReactTable .-pagination .-next .-btn:hover,
 .ReactTable .-pagination .-previous .-btn:hover,
 .contact-app-main .ui.menu.fluid .item:hover,
 .ui[class*="right labeled"].icon.button:hover,
 .ui[class*="left labeled"].icon.button:hover {
   background-color: $hover_color;
+}
+
+.modal .actions .ui[class*="right labeled"].icon.button:hover{
+  background-color: $warn_hover_color;
 }
 
 .ReactTable .-pagination .-next .-btn:disabled,
@@ -134,12 +144,12 @@ h1.ui.header .sub.header {
 }
 
 .venue-form-page div > .ui.fluid.button {
-  background-color: #d23333;
+  background-color: $warn_color;
   color: #fff;
 }
 
 .venue-form-page div > .ui.fluid.button:hover {
-  background-color: #d48811;
+  background-color: $warn_hover_color;
 }
 
 .accordion div:last-child .title span {
@@ -265,4 +275,12 @@ h1.ui.header .sub.header {
 
 .formf.ui.action.input {
   padding: 0;
+}
+
+.ui.positive.message {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-radius: 4px;
+    border: 1px solid rgba(34,36,38,.15);
+    background-color: #fff;
 }
