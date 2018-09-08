@@ -152,11 +152,11 @@ h1.ui.header .sub.header {
   background-color: $warn_hover_color;
 }
 
-.accordion div:last-child .title span {
+.ui.header.new-contact {
   color: $btn_color;
+  &:hover { color: $hover_color; }
 }
 
-.accordion div:last-child .title span:hover,
 .rt-tr-group .rt-td a:hover {
   color: $hover_color;
 }

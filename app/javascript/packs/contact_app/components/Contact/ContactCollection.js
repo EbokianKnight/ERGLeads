@@ -31,7 +31,7 @@ const EachContact = ({ parentID, index, activeIndex, record, handleClick, action
         {
           record.id != 'new' ?
             <Header as={'span'}>{contructTitle(record)}</Header>
-          : <Header as={'span'}>New Contact</Header>
+          : <Header className='new-contact' as={'span'}>New Contact</Header>
         }
       </Accordion.Title>
       <Accordion.Content active={activeIndex == index}>
