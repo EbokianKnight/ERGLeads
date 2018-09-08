@@ -138,9 +138,11 @@ class Contacts extends React.Component {
       <div>
         <div className="ui menu">
           <div className="item">Actions:</div>
-          <a href={this.props.makeCSV(this.state.selection)} download className='item'>
-            <button className='ui button blue'>Export Checked to CSV</button>
-          </a>
+          <div className='item'>
+            <a href={this.props.makeCSV(this.state.selection)} download>
+              <button className='ui button blue'>Export Checked to CSV</button>
+            </a>
+          </div>
         </div>
         <CheckboxTable
           ref={r => (this.checkboxTable = r)}
