@@ -51,7 +51,11 @@ const ACTION_HANDLERS = {
     return { ...state, selected: -1, contact: contactState };
   },
   [CLEAR_VENUE]: (state, action) => ({ ...state, contact: initialState.contact }),
-  [SELECT_CONTACT]: (state, action) => ({ ...state, selected: action.id }),
+  [SELECT_CONTACT]: (state, action) => ({
+    ...state,
+    selected: action.id,
+    contact: { ...state.contact, new: { ...state.contact.new, status: '' } }
+  }),
   [RECEIVE_CONTACTS]: (state, action) => ({ ...state, ...action.data, errors: {} }),
 };
 
