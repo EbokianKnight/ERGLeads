@@ -13,6 +13,7 @@ const emptyVenue = {
   kind: '',
   other_kind: '',
   comments: '',
+  submit: '',
   location: {
     country: 'USA',
     state: '',

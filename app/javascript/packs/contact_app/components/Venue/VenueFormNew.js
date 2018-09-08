@@ -58,7 +58,7 @@ class VenueFormNew extends React.Component {
           onDismiss={() => links.venueEdit(venue.id)}
           icon='checkmark'
           header='Success!'
-          content={`${venue.name} has been successfully entered into the database.`}
+          content={`${venue.name} has been successfully created.`}
         />
       )
     }

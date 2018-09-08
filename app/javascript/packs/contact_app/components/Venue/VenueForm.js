@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Text, TextArea, Select, Option } from 'informed';
-import { Button, Header } from 'semantic-ui-react';
+import { Message, Button, Header } from 'semantic-ui-react';
 
 const kindOfVenues =  [
   { value: 'amphitheater', text: 'Amphitheater' },
@@ -46,7 +46,6 @@ export default ({ errors, venue, disable, actions }) => {
   return (
     <Form className='ui small form' onSubmit={onSubmitForm}>
       <Header textAlign='center' as='h2'>{venue.name}</Header>
-
       <div className={`field field-container${hasError('name')}`}>
         <label className='forml' htmlFor={`name-${id}`}>Name</label>
         <Text className='formf' field='name' id={`name-${id}`} initialValue={venue.name} />
@@ -140,7 +139,15 @@ export default ({ errors, venue, disable, actions }) => {
         <label className='forml' htmlFor={`comments-${id}`}>Comments</label>
         <TextArea className='formf' field='comments' id={`comments-${id}`} initialValue={venue.comments} />
       </div>
-
+      {
+        venue.submit == 'ok' ?
+          <Message positive
+            onDismiss={() => actions.status('')}
+            icon='checkmark'
+            header='Success!'
+            content={`Successfully updated the Venue.`}
+          /> : null
+      }
       <Button className="blue" type="submit" fluid disabled={disable}>Submit</Button>
     </Form>
   );

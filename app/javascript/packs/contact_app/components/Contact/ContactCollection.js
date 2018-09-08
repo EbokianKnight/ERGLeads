@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import ContactForm from './EditWrap.js';
 import ContactFormNew from './ContactFormNew.js';
-import { Accordion, Icon, Header, Message } from 'semantic-ui-react'
+import { Accordion, Icon, Header, Message } from 'semantic-ui-react';
 
 const contructTitle = (record) => {
   if (!record.job_title) return record.full_name;
@@ -10,12 +10,15 @@ const contructTitle = (record) => {
 
 const ForEachContent = ({ parentID, record, actions }) => {
   if (record && record.status == 'ok') {
+    const message = record.id == 'new' ?
+      'Contact has successfully been created.' :
+      'Contact has successfully been updated.'
     return (
       <Message positive
         onDismiss={() => actions.status(record.id, '')}
         icon='checkmark'
         header='Success!'
-        content={`The Contact has been successfully entered into the database.`}
+        content={`Successfully submitted the Contact.`}
       />
     )
   }

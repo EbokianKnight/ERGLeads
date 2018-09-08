@@ -44,6 +44,10 @@ const submitting = (submit) => ({ type: SUBMIT_VENUE, submit });
 
 const VenueApi = new RestApi('/api/v1/venues');
 
+const status = (string) => (dispatch, getState) => {
+  dispatch(submitting(string))
+}
+
 const show = (id) => (dispatch, getState) => {
   VenueApi.get(id)
     .then((res) => dispatch(receiveRecord(res)))
@@ -94,6 +98,7 @@ export default {
   clear,
   show,
   index,
+  status,
   create,
   update,
   destroy
