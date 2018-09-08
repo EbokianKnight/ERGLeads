@@ -18,7 +18,7 @@ const ForEachContent = ({ parentID, record, actions }) => {
         onDismiss={() => actions.status(record.id, '')}
         icon='checkmark'
         header='Success!'
-        content={`Successfully submitted the Contact.`}
+        content={message}
       />
     )
   }
