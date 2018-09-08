@@ -5,9 +5,9 @@ class Venue < ApplicationRecord
   before_validation :other_kinds_default
 
   belongs_to :venue_group, optional: true
-  has_many :contacts, as: :connectable
-  has_one :location, as: :addressable
-  has_many :events
+  has_many :contacts, as: :connectable, dependent: :destroy
+  has_one :location, as: :addressable, dependent: :destroy
+  has_many :events, dependent: :destroy
 
   accepts_nested_attributes_for :location, update_only: true
   accepts_nested_attributes_for :contacts

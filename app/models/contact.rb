@@ -5,7 +5,7 @@ class Contact < ApplicationRecord
   validate :validate_has_some_name
 
   belongs_to :connectable, polymorphic: true, optional: true
-  has_one :location, as: :addressable
+  has_one :location, as: :addressable, dependent: :destroy
 
   def validate_has_some_name
     return if first_name.present? || last_name.present?
