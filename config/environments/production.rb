@@ -1,13 +1,26 @@
 Rails.application.configure do
-  # TODO set host to production hostname
   config.action_mailer.default_url_options = {
-    host: 'localhost', port: 3000
+    host: 'erg-leads.herokuapp.com'
   }
   config.action_mailer.delivery_method = :sendmail
   config.action_mailer.perform_deliveries = true
   # config.action_mailer.default_options = {
   #   from: 'no-reply@example.com'
   # }
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.gmail.com',
+    port: 587,
+    domain: 'gmail.com',
+    authentication: 'plain',
+    user_name: Rails.application.credentials.mailer[:user_name],
+    password: Rails.application.credentials.mailer[:password],
+    enable_starttls_auto: true
+  }
+
   # Verifies that versions and hashed value of the package contents in the project's package.json
   config.webpacker.check_yarn_integrity = false
   # Settings specified here will take precedence over those in config/application.rb.
