@@ -16,6 +16,7 @@ const ForEachContent = ({ parentID, record, actions }) => {
     return (
       <Message positive
         onDismiss={() => actions.status(record.id, '')}
+        onClick={() => actions.status(record.id, '')}
         icon='checkmark'
         header='Success!'
         content={message}

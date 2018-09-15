@@ -163,6 +163,7 @@ export default ({ errors, venue, disable, actions }) => {
         venue.submit == 'ok' ?
           <Message positive
             onDismiss={() => actions.status('')}
+            onClick={() => actions.status('')}
             icon='checkmark'
             header='Success!'
             content={`Successfully updated the Venue.`}
