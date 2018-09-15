@@ -66,22 +66,32 @@ export default ({ errors, venue, disable, actions }) => {
       </div>
       <div className={`field field-container${hasError('website')}`}>
         <label className='forml' htmlFor={`website-${id}`}>Website</label>
-        <div className='formf ui action input'>
-          <Text className='formf' field='website' id={`website-${id}`} initialValue={venue.website} />
-          <a href={venue.website} target='_blank' className='ui blue icon button'>
-            <i aria-hidden='true' className='external share icon'></i>
-          </a>
-        </div>
+        {
+          venue.website ?
+            <div className='formf ui action input'>
+              <Text className='formf' field='website' id={`website-${id}`} initialValue={venue.website} />
+              <a href={venue.website} target='_blank' className='ui blue icon button'>
+                <i aria-hidden='true' className='external share icon'></i>
+              </a>
+            </div>
+          : <Text className='formf' field='website' id={`website-${id}`} initialValue={venue.website} />
+
+        }
         <Errors match='website'/>
       </div>
       <div className={`field field-container${hasError('email')}`}>
         <label className='forml' htmlFor={`email-${id}`}>Email Address</label>
-        <div className='formf ui action input'>
-          <Text className='formf' field='email' id={`email-${id}`} initialValue={venue.email} />
-          <a href={`mailto:${venue.email}`} className="ui blue icon button">
-            <i aria-hidden="true" className="paper plane icon"></i>
-          </a>
-        </div>
+        {
+          venue.email ?
+            <div className='formf ui action input'>
+              <Text className='formf' field='email' id={`email-${id}`} initialValue={venue.email} />
+              <a href={`mailto:${venue.email}`} className="ui blue icon button">
+                <i aria-hidden="true" className="paper plane icon"></i>
+              </a>
+            </div>
+          : <Text className='formf' field='email' id={`email-${id}`} initialValue={venue.email} />
+
+        }
         <Errors match='email'/>
       </div>
       <div className={`field field-container${hasError('phone')}`}>

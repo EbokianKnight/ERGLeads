@@ -58,12 +58,17 @@ export default ({ parentID, record, disable, actions }) => {
 
       <div className={`field field-container${hasError('email')}`}>
         <label className='forml' htmlFor={`email-${id}`}>Email Address</label>
-        <div className='formf ui action input'>
-          <Text className='formf' field='email' id={`email-${id}`} initialValue={record.email} />
-          <a href={`mailto:${record.email}`} className="ui blue icon button">
-            <i aria-hidden="true" className="paper plane icon"></i>
-          </a>
-        </div>
+        {
+          record.email ?
+            <div className='formf ui action input'>
+              <Text className='formf' field='email' id={`email-${id}`} initialValue={record.email} />
+              <a href={`mailto:${record.email}`} className="ui blue icon button">
+                <i aria-hidden="true" className="paper plane icon"></i>
+              </a>
+            </div>
+          : <Text className='formf' field='email' id={`email-${id}`} initialValue={record.email} />
+
+        }
         <Errors match='email'/>
       </div>
       <div className={`field field-container${hasError('phone')}`}>
