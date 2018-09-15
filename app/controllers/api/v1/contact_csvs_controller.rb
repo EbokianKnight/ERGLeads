@@ -21,17 +21,30 @@ module Api
       private
 
       def csv_header
-        %w[first_name last_name venue_name job_title mailing_address email_address]
+        %w[
+          first_name last_name venue_name job_title
+          mailing_address1 mailing_address2 mailing_city mailing_state
+          mailing_country mailing_zip email_address
+        ]
       end
 
       def rows
-        Contact.where(id: contact_ids).map do |contact|
+        Contact.where(id: contact_ids, connectable_type: 'Venue')
+          .includes(:location)
+          .joins('LEFT OUTER JOIN venues ON venues.id = contacts.connectable_id')
+          .joins('LEFT OUTER JOIN locations ON venues.id = locations.addressable_id')
+          .map do |contact|
           [
             contact.first_name,
             contact.last_name,
             contact.connectable&.name,
             contact.job_title,
-            contact.location&.address || contact.connectable&.location&.address,
+            contact.location&.street || contact.connectable&.location&.street,
+            contact.location&.street2 || contact.connectable&.location&.street2,
+            contact.location&.city || contact.connectable&.location&.city,
+            contact.location&.state || contact.connectable&.location&.state,
+            contact.location&.country || contact.connectable&.location&.country,
+            contact.location&.zipcode || contact.connectable&.location&.zipcode,
             contact.email || contact&.connectable&.email
           ]
         end
