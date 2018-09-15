@@ -7,6 +7,7 @@ const kindOfVenues =  [
   { value: 'casino', text: 'Casino' },
   { value: 'club-bar', text: 'Club / Bar' },
   { value: 'fair-festival', text: 'Fair / Festival' },
+  { value: 'private-corporate', text: 'Private / Corporate' },
   { value: 'summer concert series', text: 'Summer Concert Series' },
   { value: 'theatre-pac', text: 'Theatre / Pac' },
   { value: 'other', text: 'Other' }
