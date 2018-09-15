@@ -44,6 +44,14 @@ const VenueTable = ({ venues, linkTo }) => {
       Header: 'Phone Number',
       accessor: 'phone',
       width: 130,
+      Cell: (row) => {
+        if (!row.value) return null
+        return (
+          <a href={`tel:${row.value.replace(/[^\d]/g, '')}`}>
+            { row.value }
+          </a>
+        );
+      }
     }, {
       id: 'ext',
       Header: 'Ext.',

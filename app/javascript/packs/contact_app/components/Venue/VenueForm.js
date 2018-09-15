@@ -86,7 +86,17 @@ export default ({ errors, venue, disable, actions }) => {
       </div>
       <div className={`field field-container${hasError('phone')}`}>
         <label className='forml' htmlFor={`phone-${id}`}>Phone Number</label>
-        <Text className='formf' field='phone' id={`phone-${id}`} initialValue={venue.phone} />
+        {
+          venue.phone ?
+            <div className='formf ui action input'>
+              <Text className='formf' field='phone' id={`phone-${id}`} initialValue={venue.phone} />
+              <a href={`tel:${venue.phone.replace(/[^\d+]/g, '')}`} className="ui blue icon button">
+                <i aria-hidden="true" className="phone icon"></i>
+              </a>
+            </div>
+          : <Text className='formf' field='phone' id={`phone-${id}`} initialValue={venue.phone} />
+
+        }
         <Errors match='phone'/>
       </div>
       <div className={`field field-container${hasError('ext')}`}>

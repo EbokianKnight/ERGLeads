@@ -100,6 +100,14 @@ class Contacts extends React.Component {
         Header: 'Phone Number',
         accessor: 'phone',
         width: 100,
+        Cell: (row) => {
+          if (!row.value) return null
+          return (
+            <a href={`tel:${row.value.replace(/[^\d]/g, '')}`}>
+              { row.value }
+            </a>
+          );
+        }
       }, {
         id: 'ext',
         Header: 'Ext.',
