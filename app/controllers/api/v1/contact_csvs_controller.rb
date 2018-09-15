@@ -29,10 +29,8 @@ module Api
       end
 
       def rows
-        Contact.where(id: contact_ids, connectable_type: 'Venue')
-          .includes(:location)
-          .joins('LEFT OUTER JOIN venues ON venues.id = contacts.connectable_id')
-          .joins('LEFT OUTER JOIN locations ON venues.id = locations.addressable_id')
+        Contact.where(id: contact_ids)
+          .includes(:location, connectable: [:location])
           .map do |contact|
           [
             contact.first_name,
