@@ -12,8 +12,9 @@ api:
       taken: must be unique
       invalid_phone_number: must be valid
       invalid_email: must be valid
+      invalid_website: 'is down or does not exist'
 
     validations:
       kind_inclusion: 'A kind must be selected'
-      phone_invalid: 'Phone numbers must be valid'
-      email_invalid: 'Emails must be valid'
+      invalid_phone: 'Phone numbers must be valid'
+      invalid_email: 'Email Addresses must be valid'

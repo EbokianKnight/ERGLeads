@@ -2,7 +2,9 @@ class Venue < ApplicationRecord
   validates :name, presence: true
   validates :phone, phone_number: true, allow_blank: true
   validates :email, email: true, allow_blank: true
+  validates :website, website: true, allow_blank: true
   before_validation :other_kinds_default
+  before_validation :ensure_website_protocol
 
   belongs_to :venue_group, optional: true
   has_many :contacts, as: :connectable, dependent: :destroy
@@ -26,5 +28,12 @@ class Venue < ApplicationRecord
   def organization_name
     return nil unless venue_group
     venue_group.name || venue_group.default_name
+  end
+
+  def ensure_website_protocol
+    return unless website.present?
+    return if website.match?(/^https?:\/\//)
+    return if website.match?(/^http/) # this will raise an error.
+    self.website = "http://#{website}"
   end
 end
