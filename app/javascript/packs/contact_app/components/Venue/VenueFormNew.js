@@ -66,7 +66,7 @@ class VenueFormNew extends React.Component {
     }
 
     return (
-      <Form className={`ui small form${loadingCSS}`} onSubmit={onSubmitForm}>
+      <Form className={`ui small form${loadingCSS}`} onSubmit={onSubmitForm} autoComplete="off">
         {
           loading ?
             <Header textAlign='center' as='h2'>Loading... Venue</Header>
@@ -75,12 +75,12 @@ class VenueFormNew extends React.Component {
 
         <div className={`field field-container${hasError('name')}`}>
           <label className='forml' htmlFor='name-new'>Name</label>
-          <Text className='formf' field='name' id='name-new' />
+          <Text className='formf' field='name' id='name-new' autoComplete="new-password" />
           <Errors match='name'/>
         </div>
         <div className={`field field-container${hasError('kind')}`}>
           <label className='forml' htmlFor='kind-new'>Kind of Venue</label>
-          <Select className='formf ui selection dropdown' field='kind' id='kind-new'>
+          <Select className='formf ui selection dropdown' field='kind' id='kind-new' autoComplete="new-password">
             <Option value='' disabled>Select One...</Option>
             { kindOfVenues.map((opt, idx) => <Option value={opt.value} key={idx}>{opt.text}</Option>) }
           </Select>
@@ -88,59 +88,59 @@ class VenueFormNew extends React.Component {
         </div>
         <div className={`field field-container${hasError('other_kind')}`}>
           <label className='forml' htmlFor='other_kind-new'>Kind (If Other)</label>
-          <Text className='formf' field='other_kind' id='other_kind-new'/>
+          <Text className='formf' field='other_kind' id='other_kind-new' autoComplete="new-password" />
           <Errors match='other_kind'/>
         </div>
         <div className={`field field-container${hasError('website')}`}>
           <label className='forml' htmlFor='website-new'>Website</label>
-          <Text className='formf' field='website' id='website-new' />
+          <Text className='formf' field='website' id='website-new' autoComplete="new-password" />
           <Errors match='website'/>
         </div>
         <div className={`field field-container${hasError('email')}`}>
           <label className='forml' htmlFor='email-new'>Email Address</label>
-          <Text className='formf' field='email' id='email-new' />
+          <Text className='formf' field='email' id='email-new' autoComplete="new-password" />
           <Errors match='email'/>
         </div>
         <div className={`field field-container${hasError('phone')}`}>
           <label className='forml' htmlFor='phone-new'>Phone Number</label>
-          <Text className='formf' field='phone' id='phone-new' />
+          <Text className='formf' field='phone' id='phone-new' autoComplete="new-password" />
           <Errors match='phone'/>
         </div>
         <div className={`field field-container${hasError('ext')}`}>
           <label className='forml' htmlFor='ext-new'>Extension</label>
-          <Text className='formf' field='ext' id='ext-new' />
+          <Text className='formf' field='ext' id='ext-new' autoComplete="new-password" />
           <Errors match='ext'/>
         </div>
 
         {/* LOCATION */}
         <div className={`field field-container${hasError('location.street')}`}>
           <label className='forml' htmlFor='address-new'>Address1</label>
-          <Text className='formf' field='location_attributes.street' id='address-new' />
+          <Text className='formf' field='location_attributes.street' id='address-new' autoComplete="new-password" />
           <Errors match='location.street'/>
         </div>
         <div className={`field field-container${hasError('location.street2')}`}>
           <label className='forml' htmlFor='address2-new'>Address2</label>
-          <Text className='formf' field='location_attributes.street2' id='address2-new' />
+          <Text className='formf' field='location_attributes.street2' id='address2-new' autoComplete="new-password" />
           <Errors match='location.street2'/>
         </div>
         <div className={`field field-container${hasError('location.city')}`}>
           <label className='forml' htmlFor='city-new'>City</label>
-          <Text className='formf' field='location_attributes.city' id='city-new' />
+          <Text className='formf' field='location_attributes.city' id='city-new' autoComplete="new-password" />
           <Errors match='location.city'/>
         </div>
         <div className={`field field-container${hasError('location.state')}`}>
           <label className='forml' htmlFor='state.new'>State / Province</label>
-          <Text className='formf' field='location_attributes.state' id='state.new' />
+          <Text className='formf' field='location_attributes.state' id='state.new' autoComplete="new-password" />
           <Errors match='location.state'/>
         </div>
         <div className={`field field-container${hasError('location.zipcode')}`}>
           <label className='forml' htmlFor='zipcode-new'>Zipcode</label>
-          <Text className='formf' field='location_attributes.zipcode' id='zipcode-new' />
+          <Text className='formf' field='location_attributes.zipcode' id='zipcode-new' autoComplete="new-password" />
           <Errors match='location.zipcode'/>
         </div>
         <div className={`field field-container${hasError('location.country')}`}>
           <label className='forml' htmlFor='country-new'>Country</label>
-          <Select className='formf ui selection dropdown' field='location_attributes.country' id='country-new'>
+          <Select className='formf ui selection dropdown' field='location_attributes.country' id='country-new' autoComplete="new-password">
             { kindOfCountries.map((opt, idx) => <Option value={opt.value} key={idx}>{opt.text}</Option>) }
           </Select>
           <Errors match='location.country'/>
@@ -148,7 +148,7 @@ class VenueFormNew extends React.Component {
 
         <div className={`field field-container${hasError('location.comments')}`}>
           <label className='forml' htmlFor='comments-new'>Comments</label>
-          <TextArea className='formf' field='comments' id='comments-new' />
+          <TextArea className='formf' field='comments' id='comments-new' autoComplete="new-password" />
         </div>
 
         <Button className="blue" type="submit" fluid disabled={disable}>Submit</Button>

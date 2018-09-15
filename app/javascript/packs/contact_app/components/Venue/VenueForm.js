@@ -44,12 +44,13 @@ export default ({ errors, venue, disable, actions }) => {
 
   const id = venue.id;
 
+  // Fuck you chrome. autocomplete="new-password" shouldnt be needed on EVERY INPUT
   return (
-    <Form className='ui small form' onSubmit={onSubmitForm}>
+    <Form className='ui small form' onSubmit={onSubmitForm} autoComplete="off">
       <Header textAlign='center' as='h2'>{venue.name}</Header>
       <div className={`field field-container${hasError('name')}`}>
         <label className='forml' htmlFor={`name-${id}`}>Name</label>
-        <Text className='formf' field='name' id={`name-${id}`} initialValue={venue.name} />
+        <Text className='formf' field='name' id={`name-${id}`} initialValue={venue.name} autoComplete="new-password" />
         <Errors match='name'/>
       </div>
       <div className={`field field-container${hasError('kind')}`}>
@@ -62,7 +63,7 @@ export default ({ errors, venue, disable, actions }) => {
       </div>
       <div className={`field field-container${hasError('other_kind')}`}>
         <label className='forml' htmlFor={`other_kind-${id}`}>Kind (If Other)</label>
-        <Text className='formf' field='other_kind' id={`other_kind-${id}`} initialValue={venue.other_kind} />
+        <Text className='formf' field='other_kind' id={`other_kind-${id}`} initialValue={venue.other_kind} autoComplete="new-password" />
         <Errors match='other_kind'/>
       </div>
       <div className={`field field-container${hasError('website')}`}>
@@ -70,12 +71,12 @@ export default ({ errors, venue, disable, actions }) => {
         {
           venue.website ?
             <div className='formf ui action input'>
-              <Text className='formf' field='website' id={`website-${id}`} initialValue={venue.website} />
+              <Text className='formf' field='website' id={`website-${id}`} initialValue={venue.website} autoComplete="new-password" />
               <a href={venue.website} target='_blank' className='ui blue icon button'>
                 <i aria-hidden='true' className='external share icon'></i>
               </a>
             </div>
-          : <Text className='formf' field='website' id={`website-${id}`} initialValue={venue.website} />
+          : <Text className='formf' field='website' id={`website-${id}`} initialValue={venue.website} autoComplete="new-password" />
 
         }
         <Errors match='website'/>
@@ -85,12 +86,12 @@ export default ({ errors, venue, disable, actions }) => {
         {
           venue.email ?
             <div className='formf ui action input'>
-              <Text className='formf' field='email' id={`email-${id}`} initialValue={venue.email} />
+              <Text className='formf' field='email' id={`email-${id}`} initialValue={venue.email} autoComplete="new-password" />
               <a href={`mailto:${venue.email}`} className="ui blue icon button">
                 <i aria-hidden="true" className="paper plane icon"></i>
               </a>
             </div>
-          : <Text className='formf' field='email' id={`email-${id}`} initialValue={venue.email} />
+          : <Text className='formf' field='email' id={`email-${id}`} initialValue={venue.email} autoComplete="new-password" />
 
         }
         <Errors match='email'/>
@@ -100,57 +101,57 @@ export default ({ errors, venue, disable, actions }) => {
         {
           venue.phone ?
             <div className='formf ui action input'>
-              <Text className='formf' field='phone' id={`phone-${id}`} initialValue={venue.phone} />
+              <Text className='formf' field='phone' id={`phone-${id}`} initialValue={venue.phone} autoComplete="new-password" />
               <a href={`tel:${venue.phone.replace(/[^\d+]/g, '')}`} className="ui blue icon button">
                 <i aria-hidden="true" className="phone icon"></i>
               </a>
             </div>
-          : <Text className='formf' field='phone' id={`phone-${id}`} initialValue={venue.phone} />
+          : <Text className='formf' field='phone' id={`phone-${id}`} initialValue={venue.phone} autoComplete="new-password" />
 
         }
         <Errors match='phone'/>
       </div>
       <div className={`field field-container${hasError('ext')}`}>
         <label className='forml' htmlFor={`ext-${id}`}>Extension</label>
-        <Text className='formf' field='ext' id={`ext-${id}`} initialValue={venue.ext} />
+        <Text className='formf' field='ext' id={`ext-${id}`} initialValue={venue.ext} autoComplete="new-password" />
         <Errors match='ext'/>
       </div>
 
       {/* LOCATION */}
       <div className={`field field-container${hasError('location.street')}`}>
         <label className='forml' htmlFor={`address1-${id}`}>Address1</label>
-        <Text className='formf' field='location_attributes.street' id={`address1-${id}`}
+        <Text className='formf' field='location_attributes.street' id={`address1-${id}`} autoComplete="new-password"
           initialValue={venue.location && venue.location.street} />
         <Errors match='location.street'/>
       </div>
       <div className={`field field-container${hasError('location.street2')}`}>
         <label className='forml' htmlFor={`address2-${id}`}>Address2</label>
-        <Text className='formf' field='location_attributes.street2' id={`address2-${id}`}
+        <Text className='formf' field='location_attributes.street2' id={`address2-${id}`} autoComplete="new-password"
           initialValue={venue.location && venue.location.street2} />
         <Errors match='location.street2'/>
       </div>
       <div className={`field field-container${hasError('location.city')}`}>
         <label className='forml' htmlFor={`city-${id}`}>City</label>
-        <Text className='formf' field='location_attributes.city' id={`city-${id}`}
+        <Text className='formf' field='location_attributes.city' id={`city-${id}`} autoComplete="new-password"
           initialValue={venue.location && venue.location.city} />
         <Errors match='location.city'/>
       </div>
       <div className={`field field-container${hasError('location.state')}`}>
         <label className='forml' htmlFor={`state-${id}`}>State / Province</label>
-        <Text className='formf' field='location_attributes.state' id={`state-${id}`}
+        <Text className='formf' field='location_attributes.state' id={`state-${id}`} autoComplete="new-password"
           initialValue={venue.location && venue.location.state} />
         <Errors match='location.state'/>
       </div>
       <div className={`field field-container${hasError('location.zipcode')}`}>
         <label className='forml' htmlFor={`zipcode-${id}`}>Zipcode</label>
-        <Text className='formf' field='location_attributes.zipcode' id={`zipcode-${id}`}
+        <Text className='formf' field='location_attributes.zipcode' id={`zipcode-${id}`} autoComplete="new-password"
           initialValue={venue.location && venue.location.zipcode} />
         <Errors match='location.zipcode'/>
       </div>
       <div className={`field field-container${hasError('location.country')}`}>
         <label className='forml' htmlFor={`country-${id}`}>Country</label>
         <Select className='formf ui selection dropdown' field='location_attributes.country' id={`country-${id}`}
-          initialValue={venue.location && venue.location.country}>
+          initialValue={venue.location && venue.location.country} autoComplete="new-password">
           { kindOfCountries.map((opt, idx) => <Option value={opt.value} key={idx}>{opt.text}</Option>) }
         </Select>
         <Errors match='location.country'/>
@@ -158,7 +159,7 @@ export default ({ errors, venue, disable, actions }) => {
 
       <div className={`field field-container${hasError('location.comments')}`}>
         <label className='forml' htmlFor={`comments-${id}`}>Comments</label>
-        <TextArea className='formf' field='comments' id={`comments-${id}`} initialValue={venue.comments} />
+        <TextArea className='formf' field='comments' id={`comments-${id}`} initialValue={venue.comments} autoComplete="new-password" />
       </div>
       {
         venue.submit == 'ok' ?
