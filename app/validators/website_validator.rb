@@ -12,11 +12,12 @@ class WebsiteValidator < ActiveModel::EachValidator
     record.errors.add(attribute.to_sym, :invalid_website)
   end
 
+  # Will probably remove the actual url call in the future, but given the very
+  # limited use of the app, this isnt a high priority atm. We will see.
+  # I still think it's kind of cool. (though I do not recommend this for real)
   def website_responds?(url_str)
     url = URI.parse(url_str)
-    Net::HTTP.start(url.host, url.port) do |http|
-      http.head(url.request_uri).code == '200'
-    end
+    Net::HTTP.get_response(url).code == "200"
   rescue
     false
   end
