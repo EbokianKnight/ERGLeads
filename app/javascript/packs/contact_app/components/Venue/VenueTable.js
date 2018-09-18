@@ -76,17 +76,22 @@ const VenueTable = ({ venues, linkTo }) => {
     }
   ];
   return (
-    <ReactTable
-      className="-highlight"
-      data={venues}
-      columns={columns}
-      minRows={5}
-      filterable={true}
-      pageSizeOptions={[10, 20, 50, 100, 500]}
-      defaultPageSize={20}
-      defaultFilterMethod={customFiltering}
-      getTdProps={handleClick}
-    />
+    <div>
+      <div className="ui menu">
+        <div className="item right">{`${venues.length}  Total Records`}</div>
+      </div>
+      <ReactTable
+        className="-highlight"
+        data={venues}
+        columns={columns}
+        minRows={5}
+        filterable={true}
+        pageSizeOptions={[10, 20, 50, 100, 500, 1000]}
+        defaultPageSize={20}
+        defaultFilterMethod={customFiltering}
+        getTdProps={handleClick}
+      />
+    </div>
   );
 
 }

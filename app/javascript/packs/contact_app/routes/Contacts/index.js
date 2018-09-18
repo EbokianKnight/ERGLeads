@@ -151,6 +151,7 @@ class Contacts extends React.Component {
               <button className='ui button blue'>Export Checked to CSV</button>
             </a>
           </div>
+          <div className="item right">{`${data.length}  Total Records`}</div>
         </div>
         <CheckboxTable
           ref={r => (this.checkboxTable = r)}
