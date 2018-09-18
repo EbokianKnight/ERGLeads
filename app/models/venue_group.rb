@@ -2,7 +2,6 @@ class VenueGroup < ApplicationRecord
   validates :name, presence: true
   validates :phone, phone_number: true, allow_blank: true
   validates :email, email: true, allow_blank: true
-  validates :website, website: true, allow_blank: true
   before_validation :ensure_website_protocol
 
   has_many :venues, dependent: :destroy
