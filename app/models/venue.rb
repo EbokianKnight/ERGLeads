@@ -32,7 +32,6 @@ class Venue < ApplicationRecord
   def ensure_website_protocol
     return unless website.present?
     return if website.match?(/^https?:\/\//)
-    return if website.match?(/^http/) # this will raise an error.
     self.website = "http://#{website}"
   end
 end
