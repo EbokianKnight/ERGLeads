@@ -33,7 +33,7 @@ module Api
 
       def present_records
         Serialize::Models::Contact::Index.new(
-          Contact.includes(:location, connectable: [:location])
+          Contact.includes(:location, connectable: [:location]).order(:last_name)
         )
       end
 
