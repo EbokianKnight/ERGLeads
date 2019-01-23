@@ -20,7 +20,7 @@ module Serialize
         connectable_id: @object.id,
         connectable_type: 'Venue',
         connectable_kind: connectable_kind(@object),
-        id: 0,
+        id: "v#{@object.id}",
         full_name: @object.name,
         first_name: nil,
         last_name: nil,

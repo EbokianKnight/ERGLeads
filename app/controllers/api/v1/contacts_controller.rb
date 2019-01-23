@@ -42,7 +42,7 @@ module Api
       end
 
       def venueless_contact_records
-        Serialize::VenuelessContact::Index.new(
+        Serialize::ContactlessVenue::Index.new(
           Venue.no_contacts.includes(:location)
         ).as_json
       end
