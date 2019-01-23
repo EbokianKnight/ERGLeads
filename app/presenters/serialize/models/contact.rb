@@ -18,6 +18,7 @@ module Serialize
         {
           connectable_id: @object.connectable_id,
           connectable_type: @object.connectable_type,
+          connectable_kind: connectable_kind(@object),
           id: @object.id,
           full_name: "#{@object.first_name} #{@object.last_name}".squish,
           first_name: @object.first_name,
@@ -32,6 +33,15 @@ module Serialize
           updated_at: @object.updated_at,
           venue_name: @object.connectable&.name
         }
+      end
+
+      private
+
+      def connectable_kind(object)
+        venue = object&.connectable
+        return "" unless venue
+        return venue.kind unless venue.kind == "other"
+        venue.other_kind
       end
 
       def location_details(object)
