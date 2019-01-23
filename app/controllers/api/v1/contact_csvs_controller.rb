@@ -5,7 +5,6 @@ module Api
     class ContactCsvsController < ApiController
       def index
         respond_to do |format|
-          binding.pry
           format.json do
             render json: { csv: [csv_header].concat(rows) }, status: 200
           end
