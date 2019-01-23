@@ -5,6 +5,7 @@ module Api
     class ContactCsvsController < ApiController
       def index
         respond_to do |format|
+          binding.pry
           format.json do
             render json: { csv: [csv_header].concat(rows) }, status: 200
           end
@@ -29,6 +30,10 @@ module Api
       end
 
       def rows
+        contact_rows + contactless_venue_rows
+      end
+
+      def contact_rows
         Contact.where(id: contact_ids)
           .includes(:location, connectable: [:location])
           .map do |contact|
@@ -43,7 +48,25 @@ module Api
             contact.location&.state || contact.connectable&.location&.state,
             contact.location&.country || contact.connectable&.location&.country,
             contact.location&.zipcode || contact.connectable&.location&.zipcode,
-            contact.email || contact&.connectable&.email
+            contact.email || contact&.connectable&.email,
+          ]
+        end
+      end
+
+      def contactless_venue_rows
+        Venue.where(id: venue_ids).includes(:location).map do |venue|
+          [
+            nil,
+            nil,
+            venue.name,
+            nil,
+            venue.location&.street,
+            venue.location&.street2,
+            venue.location&.city,
+            venue.location&.state,
+            venue.location&.country,
+            venue.location&.zipcode,
+            venue.email,
           ]
         end
       end
@@ -57,8 +80,20 @@ module Api
         bom + csv_body
       end
 
-      def contact_ids
+      def all_ids
         params.permit(:format, contact_ids: [])[:contact_ids] || []
+      end
+
+      def contact_ids
+        all_ids.each.with_object([]) do |id, ids|
+          ids << id.to_i if id.to_s.match?(/^\d+$/)
+        end
+      end
+
+      def venue_ids
+        all_ids.each.with_object([]) do |id, ids|
+          ids << id.match(/\d+/)[0].to_i if id.to_s.match?(/v/)
+        end
       end
     end
   end
