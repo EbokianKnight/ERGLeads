@@ -14,6 +14,11 @@ class Venue < ApplicationRecord
   accepts_nested_attributes_for :contacts
   accepts_nested_attributes_for :events
 
+  scope :no_contacts, -> {
+    where.not(email: nil, id: Contact.where(connectable_type: 'Venue')
+         .distinct.pluck(:connectable_id))
+  }
+
   def type_of_venue
     return other_kind if kind == 'other'
     kind
